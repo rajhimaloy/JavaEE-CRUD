@@ -1,0 +1,77 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<c:set var="screenId" value="#{screen}" />
+	<c:set var="screenName" value="#{MSG_0000[screenId]}" />
+	<c:set var="processId" value="${fn:substring(screenId, 0, 2)}00" />
+	<c:set var="processName" value="#{MSG_0000[processId]}" />
+
+	<p:dialog id="exceptionDialog" height="80%" widgetVar="exceptionDialog"
+		header="Exception '#{pfExceptionHandler.type}' occured!"
+		appendTo="@(body)" draggable="true" responsive="true">
+
+		<h:outputText value="Message: #{pfExceptionHandler.message}" />
+		<p:separator />
+
+		<h:outputText escape="false"
+			value="StackTrace: #{pfExceptionHandler.formattedStackTrace}" />
+		<p:separator />
+
+		<p:button value="Reload!"
+			onclick="document.location.href = document.location.href;"
+			rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
+	</p:dialog>
+
+	<p:dialog closable="true" closeOnEscape="true" responsive="true"
+		resizable="false" visible="false" modal="true" draggable="true"
+		showEffect="fade" hideEffect="fade" widgetVar="wvrMsgDialog"
+		position="center" appendTo="@(body)">
+
+		<f:facet name="header">
+			<h:outputText value="#{screenName} (#{screenId})"
+				styleClass="Fs17 hardblue" />
+		</f:facet>
+
+		<p:messages autoUpdate="true" globalOnly="true" />
+
+		<f:facet name="footer">
+			<p:commandButton value="#{MSG_0000['08']}" type="button"
+				onclick="hideMsgDialog()" />
+		</f:facet>
+	</p:dialog>
+
+	<p:confirmDialog closable="true" closeOnEscape="true" global="true"
+		showEffect="fade" hideEffect="fade" message="#{MSG_0000['12']}"
+		width="25%" appendTo="@(body)">
+
+		<f:facet name="header">
+			<h:outputText value="#{MSG_0000['11']}" styleClass="Fs17 hardblue" />
+		</f:facet>
+
+		<p:commandButton value="#{MSG_0000['08']}" type="button"
+			styleClass="ui-confirmdialog-yes" />
+
+		<p:commandButton value="#{MSG_0000['07']}" type="button"
+			styleClass="ui-confirmdialog-no" />
+	</p:confirmDialog>
+
+	<div class="ContainerIndent ui-fluid">
+		<p:panel styleClass="ui-panelgrid-blank">
+			<f:facet name="header">
+				<h:outputText value="#{processName}"
+					styleClass="FontBold Fs19 softblue" />
+
+				<i class="icon-right-open"></i>
+				<h:outputText value="#{screenName} (#{screenId})"
+					styleClass="Fs17 hardblue" />
+			</f:facet>
+
+			<ui:insert name="content" />
+		</p:panel>
+	</div>
+</f:view>

@@ -1,0 +1,106 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+	<!-- **************************** Side bar Menu Start from Here **************************** -->
+	<div id="layout-menubar" class="Unselectable fontRegular">
+		<div class="layout-menubarinner-box" id="buttonArea">
+			<a href="#" id="layout-menubar-resize" class="BordRad3"
+				title="Menu Resize"> <i class="icon-th-list-2"></i>
+			</a> <a href="#" id="layout-menubar-resize2" class="BordRad3"
+				title="Open Menu"> <i class="icon-menu"></i>
+			</a>
+		</div>
+
+		
+		<hgroup>
+			<p:link value="System Administration" />
+		</hgroup>
+		
+		<hr />
+
+		<shiro:hasPermission name="0001:VIEW">
+			<p:link value="User Setup" outcome="/module/sa/uac/UserSetup.jsf" />
+		</shiro:hasPermission>
+		
+		<hr />
+
+		<shiro:hasPermission name="0002:VIEW">
+			<p:link value="User Group Setup"
+				outcome="/module/sa/uac/UserGroupSetup.jsf" />
+		</shiro:hasPermission>
+		
+		<hr />
+
+		<shiro:hasPermission name="0003:VIEW">
+			<p:link value="User Group Wise Access Permission"
+				outcome="/module/sa/uac/UserGroupWiseAccessPermission.jsf" />
+		</shiro:hasPermission>
+		
+		<hr />
+
+		<shiro:hasPermission name="0004:VIEW">
+			<p:link value="Change Password"
+				outcome="/module/sa/uac/ChangePassword.jsf" />
+		</shiro:hasPermission>
+		
+		<hr />
+
+		<p:menu>
+			<p:submenu>
+				<shiro:hasPermission name="0001:VIEW">
+					<p:menuitem value="Setup 1" outcome="/module/sa/uac/UserSetup.jsf" />
+				</shiro:hasPermission>
+				<shiro:hasPermission name="0002:VIEW">
+					<p:menuitem value="Setup 2" outcome="/module/sa/uac/ChangePassword.jsf" />
+				</shiro:hasPermission>
+			</p:submenu>
+		</p:menu>
+
+
+
+		<!-- <ps:menu id="sm_leftmenu">
+			<p:menuitem id="sm_0001" value="Left Menu" icon="icon-home-outline"
+				outcome="/module/sa/HomePage.jsf"
+				containerStyleClass="layout-menubar-active" />
+
+			<p:submenu id="sm_0100" label="Left Sub-Menu">
+				<p:submenu id="sm_0110" label="Left Sub-Menu 1">
+					<p:menuitem id="sm_0111" value="Change Password"
+						outcome="/module/sa/uac/ChangePassword.jsf" />
+
+					<p:menuitem id="sm_0112" value="User Setup"
+						outcome="/module/sa/uac/UserSetup.jsf" />
+
+					<p:menuitem id="sm_0113" value="#{MSG_0000['0113']}"
+						outcome="/module/sa/uac/UserGroupSetup.jsf" />
+
+					<p:menuitem id="sm_0114" value="#{MSG_0000['0114']}"
+						outcome="/module/sa/uac/UserGroupWiseAccessPermission.jsf" />
+				</p:submenu>
+			</p:submenu>
+
+		</ps:menu> -->
+
+		<!-- <p:menu>
+					<p:submenu>
+						<p:menuitem value="User Setup"
+							url="../../view/sa/userSetup.xhtml" />
+						<p:menuitem value="Role Setup" url="../../view/cif/customer.xhtml" />
+						<p:menuitem value="Assign User to Role"
+							url="../../view/cif/customer.xhtml" />
+						<p:menuitem value="Assign Permission to Role"
+							url="../../view/cif/customer.xhtml" />
+						<p:menuitem value="Activate User"
+							url="../../view/cif/customer.xhtml" />
+						<p:menuitem value="Change Password"
+							url="../../view/cif/customer.xhtml" />
+					</p:submenu>
+				</p:menu> -->
+
+	</div>
+
+</f:view>

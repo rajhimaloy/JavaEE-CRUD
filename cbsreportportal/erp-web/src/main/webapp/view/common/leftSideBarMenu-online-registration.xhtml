@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+	<!-- **************************** Side bar Menu Start from Here **************************** -->
+	<p:layoutUnit position="west" size="250" header="Menu" collapsible="true" closeOnEscape="true" global="true"
+		showEffect="fade" hideEffect="fade" style="background-color: #ffffff; border: 0px;">
+		<!-- <shiro:hasPermission name="99999:VIEW">			
+		</shiro:hasPermission> -->
+		
+		<!-- <p:accordionPanel>
+			<p:tab title="Administration">
+				<p:menu>
+					<p:submenu>					
+						<shiro:hasPermission name="10003:VIEW">
+							<p:menuitem value="User Group Setup" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="10004:VIEW">
+							<p:menuitem value="Assign Permission to User Group" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+					</p:submenu>
+				</p:menu>
+			</p:tab>
+
+			<p:separator />
+		</p:accordionPanel> -->  	
+		
+
+	</p:layoutUnit>
+	<!-- **************************** Side bar Menu End Here **************************** -->
+
+</ui:composition>

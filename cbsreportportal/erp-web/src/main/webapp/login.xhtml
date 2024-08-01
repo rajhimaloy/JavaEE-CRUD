@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title><h:outputText value="#{MSG_0000['0000']}" /></title>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+		<h:outputStylesheet library="sentinel-layout"
+			name="css/font-icon-layout.css" />
+		<h:outputStylesheet library="sentinel-layout"
+			name="css/sentinel-layout.css" />
+		<h:outputStylesheet library="sentinel-layout"
+			name="css/core-layout.css" />
+
+		<h:outputScript library="sentinel-layout" name="js/login.js" />
+	</h:head>
+
+	<h:body class="fontRegular login-back white-back">
+		<div id="login-header"
+			class="Container80 MaxWid500 Fnone MarAuto TexAlCenter">
+
+			<a id="login-logo"> <h:graphicImage name="images/LOGO.svg"
+					styleClass="Fleft" library="sentinel-layout" /> <span
+				class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span
+					class="softblue"><h:outputText value="#{MSG_0000['0005']}" /></span><span
+					class="hardblue"><h:outputText value="#{MSG_0000['0006']}" /></span></span>
+			</a>
+			<div class="EmptyBox10"></div>
+		</div>
+
+		<div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10"
+			id="login-box">
+			<div class="Container100">
+
+				<div role="1" style="background-color: #f9f9f9"
+					class="TexAlCenter Animated05 BoxSizeBorder TabBtn TabBtnActiveLeft">
+					<div class="Container80 Fnone MarAuto FontBold">
+						<i class="icon-lock"></i>
+						<h:outputText value="#{MSG_0000['09']}" />
+					</div>
+				</div>
+
+				<div id="TAB1"
+					class="Container90 Fnone MarAuto TexAlCenter TabContent">
+					<p:outputPanel>
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<p:fieldset legend="Login to TMR Service Portal"
+									style="margin-bottom:20px">
+
+									<p:tabView>
+										<p:tab title="Login">
+
+											<h:form id="login">
+												<p:messages id="messages" globalOnly="true" />
+
+												<h:panelGrid columns="3" cellpadding="5"
+													style="margin: 0 auto;">
+
+													<p:outputLabel for="userName" value="User Name" />
+													<p:inputText id="userName"
+														value="#{userAuthenticationController.userName}" />
+													<p:message for="userName" />
+
+													<p:outputLabel for="password" value="Password" />
+													<p:inputText type="password" id="password"
+														value="#{userAuthenticationController.password}" />
+													<p:message for="password" />
+
+													<!-- <p:commandButton id="submit" update="@form" value="Login"
+														action="#{userAuthenticationController.login()}" /> -->
+													<p:commandButton ajax="false" value="login"
+														validateClient="true" styleClass="Fs16"
+														action="#{userAuthenticationController.login()}" />
+												</h:panelGrid>
+											</h:form>
+										</p:tab>
+										<!-- <p:tab title="Registration">
+
+											<h:form id="onlineRegistration">
+												<p:messages id="messages" globalOnly="true" />
+
+												<h:panelGrid columns="3" cellpadding="5"
+													style="margin: 0 auto;">
+
+													<p:outputLabel for="email" value="Email" />
+													<p:inputText id="email"
+														value="#{userAuthenticationController.email}" />
+													<p:message for="email" />
+
+													<p:commandButton id="submit" update="@form" value="Registration"
+														action="#{userAuthenticationController.registration()}" />
+													<p:commandButton ajax="false" value="registration"
+														validateClient="true" styleClass="Fs16"
+														action="#{userAuthenticationController.registration()}" />
+												</h:panelGrid>
+											</h:form>
+										</p:tab> -->
+										<p:tab title="About Nagad">
+											<h:panelGrid columns="1" cellpadding="10">
+												<p:graphicImage library="images" name="logo.png"
+													width="139px" height="60px" />
+												<h:outputText
+													value="Nagad is an innovative and promising digital financial service of Bangladesh Post Office 
+														that embarked upon a glorious journey on March 26, 2019. After its inception, 
+														Nagad has financially included about 5.5 crore people only in two and half years. 
+														Head office is located at 36, Delta Dahlia Tower, Kemal Ataturk Avenue, Banani, Dhaka -1213." />
+											</h:panelGrid>
+										</p:tab>
+									</p:tabView>
+
+									<!-- <div style="text-align: center; font-size: 12px; font-style: italic; padding: 10px;">Developed By @Rajib Kumer Ghosh. Snr. Software Developer.</div> -->
+									<div style="text-align: center; font-size: 12px; font-style: italic; padding: 10px;">
+										Developed By @ Planning &#38; Business Operations, Nagad.
+									</div>
+								</p:fieldset>
+							</div>
+						</div>
+					</p:outputPanel>
+				</div>
+			</div>
+		</div>
+	</h:body>
+</f:view>

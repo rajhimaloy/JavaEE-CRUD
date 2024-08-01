@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2020-06-02T03:01:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DateCurrencyFormat" pageWidth="1" pageHeight="1" columnWidth="1" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c4150956-ec88-4530-84bb-185a80955cca">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Rajib Data Adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="COMMON_POLICY_CONFIG_ID" class="java.lang.Integer">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="POLICY_CONFIG_ID_OPTION" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[" GPC.GPCPOLICYID = "+$P{COMMON_POLICY_CONFIG_ID}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+                 LEFT(AMTFRMT.FMFFORJAVA,LEN(AMTFRMT.FMFFORJAVA)-1) + REPLACE(RIGHT(AMTFRMT.FMFFORJAVA,1),'#','0')  + REPLACE(SD.DPAFORJAVA,'#','0')  AS JavaAmountFormat,
+
+                 DATEFRMT.DFTFORJAVA AS JavaDateFormat
+
+                 FROM SFS_DATEFORMATE AS DATEFRMT INNER JOIN ACC_GLOBALPOLICYCONFIG AS GPC ON DATEFRMT.DFTDATEFORMATID = GPC.GPCDATEFORMAT
+                 INNER JOIN SFS_AMOUNTFORMAT AS AMTFRMT ON AMTFRMT.FMFAMOUNTFORMATID=GPC.GPCFINANCIALVALUEFORMAT 
+				 INNER JOIN SFS_DECIMALPLACESFORAMOUNT AS SD ON SD.DPADECIMALPLACEAMOUNTID=GPC.GPCDECIMALPLACESFORAMOUNT
+
+				 WHERE 
+				 $P!{POLICY_CONFIG_ID_OPTION}]]>
+	</queryString>
+	<field name="JavaAmountFormat" class="java.lang.String"/>
+	<field name="JavaDateFormat" class="java.lang.String"/>
+	<variable name="java_date_Format" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{JavaDateFormat}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{JavaDateFormat}]]></initialValueExpression>
+	</variable>
+	<variable name="java_currency_Format" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{JavaAmountFormat}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+</jasperReport>

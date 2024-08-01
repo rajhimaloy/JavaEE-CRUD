@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="13990502:VIEW">
+	<f:view contentType="text/html">
+		<h:head>
+			<f:facet name="first">
+				<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+				<title>TMR Portal - Visit Information Report</title>
+				<link type="text/css" rel="stylesheet"
+					href="/resources/css/customStyle.css"></link>
+			</f:facet>
+		</h:head>
+
+		<h:body class="customBody">
+			<p:layout fullPage="true">
+
+				<!-- **************************** Header Start from Here **************************** -->
+				<ui:include src="/view/common/header-footer.xhtml" />
+				<!-- **************************** Header End Here *********************************** -->
+
+
+				<!-- **************************** Side bar Menu Start from Here ********************* -->
+				<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+				<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+				<!-- **************************** Body Start from Here ****************************** -->
+				<p:layoutUnit position="center" id="center" style="border: 0px;">
+
+					<f:view>
+						<h:form id="visitInformationReportForm" class="customForm"
+							target="_blank">
+							<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+							<p:fieldset legend="TMR Module - Visit Information Report:-"
+								id="toggleable1" class="customFieldset" toggleable="true"
+								toggleSpeed="500">
+								<h:panelGrid columns="2" cellpadding="5"
+									styleClass="ui-noborder">
+									<p:outputLabel for="reportSelection" value="Report:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="reportSelection"
+										class="customSelectOneMenu" required="true" widgetVar="selectWV" tabindex="1"
+										value="#{visitInformationReportController.visitInformationReportDTO.reportSelection}">
+										<f:selectItem itemLabel="Select Report" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="Merchant Ondoard Audit Report" itemValue="1" />
+										<f:selectItem itemLabel="Merchant Regular Visit Audit Report" itemValue="2" />
+										<f:selectItem itemLabel="Merchant Campaign Visit Audit Report" itemValue="3" />
+										<!-- <f:selectItem itemLabel="Media Audit Report" itemValue="4" /> -->
+										<p:ajax event="change"
+											update="regionName areaName teritoryName tmWalet dhWalet dsoWalet uddoktaWalet popupDatePicker1 popupDatePicker2"
+											listener="#{visitInformationReportController.getRegionDropdownList}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
+							</p:fieldset>
+
+							<p:fieldset legend="Report Filtering Criteria:-" id="toggleable2"
+								class="customFieldset" toggleable="true" toggleSpeed="500" collapsed="true">
+								<!-- <p:messages id="messages"/> -->
+								<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+
+									<p:outputLabel for="clusterName" value="Cluster Name:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="clusterName" class="customSelectOneMenu"
+										tabindex="2" required="false"
+										value="#{visitInformationReportController.visitInformationReportDTO.clusterName}">
+										<f:selectItem itemLabel="Select Cluster" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{visitInformationReportController.dropdownDTOClusterList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+										<p:ajax event="blur" update="regionName"
+											listener="#{visitInformationReportController.getRegionDropdownList}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="regionName" value="Region Name:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="regionName" class="customSelectOneMenu"
+										tabindex="3" required="false"
+										value="#{visitInformationReportController.visitInformationReportDTO.regionName}">
+										<f:selectItem itemLabel="Select Region" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{visitInformationReportController.dropdownDTORegionList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+										<p:ajax event="blur" update="areaName"
+											listener="#{visitInformationReportController.getAreaDropdownList}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="areaName" value="Area Name: "
+										class="customOutputLabel" />
+									<p:selectOneMenu id="areaName" class="customSelectOneMenu"
+										tabindex="4"
+										value="#{visitInformationReportController.visitInformationReportDTO.areaName}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection != 8 or visitInformationReportController.visitInformationReportDTO.reportSelection != 9}">
+										<f:selectItem itemLabel="Select Area" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{visitInformationReportController.dropdownDTOAreaList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+										<p:ajax event="blur" update="teritoryName"
+											listener="#{visitInformationReportController.getTeritoryDropdownList}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="teritoryName" value="Teritory Name:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="teritoryName" class="customSelectOneMenu"
+										tabindex="5"
+										value="#{visitInformationReportController.visitInformationReportDTO.teritoryName}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection != 9}">
+										<f:selectItem itemLabel="Select Teritory" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{visitInformationReportController.dropdownDTOTeritoryList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="tmWalet" value="TMR Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="tmWalet" class="customInputText" tabindex="7"
+										value="#{visitInformationReportController.visitInformationReportDTO.tmWalet}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection == 9}" />
+
+									<p:outputLabel for="dhWalet" value="DH Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="dhWalet" class="customInputText" tabindex="6"
+										value="#{visitInformationReportController.visitInformationReportDTO.dhWalet}" 
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection == 9}" />
+
+									<p:outputLabel for="dsoWalet" value="DSO Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="dsoWalet" class="customInputText" tabindex="7"
+										value="#{visitInformationReportController.visitInformationReportDTO.dsoWalet}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection != 9}" />
+
+									<p:outputLabel for="uddoktaWalet" value="Uddokta Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="uddoktaWalet" class="customInputText" tabindex="8"
+										value="#{visitInformationReportController.visitInformationReportDTO.uddoktaWalet}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection != 9}" />
+
+								</p:panelGrid>
+							</p:fieldset>
+
+							<p:fieldset legend="Report Filtering Criteria for Date:-"
+								id="toggleable3" class="customFieldset" toggleable="false"
+								toggleSpeed="500" collapsed="false">
+								<!-- <p:messages id="messages"/> -->
+								
+								<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+									<p:outputLabel for="popupDatePicker1" value="From Date:"
+										class="customOutputLabel" />
+									<p:datePicker id="popupDatePicker1" class="customDatePicker"
+										showIcon="true" tabindex="10" required="true"
+										value="#{visitInformationReportController.visitInformationReportDTO.fromDate}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection == 8 or visitInformationReportController.visitInformationReportDTO.reportSelection == 9 or visitInformationReportController.visitInformationReportDTO.reportSelection == 10}" />
+
+									<p:outputLabel for="popupDatePicker2" value="To Date:"
+										class="customOutputLabel" />
+									<p:datePicker id="popupDatePicker2" class="customDatePicker"
+										showIcon="true" tabindex="11" required="true"
+										value="#{visitInformationReportController.visitInformationReportDTO.toDate}"
+										disabled="#{visitInformationReportController.visitInformationReportDTO.reportSelection == 9}" />
+									<!-- required="true" required-message="Please provide the To Date." -->
+								</p:panelGrid>
+							</p:fieldset>
+
+							<p:panel header="Report Export Format:-" id="toggleable"
+								class="customPanel" toggleable="true" closable="true" collapsed="false"
+								toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+								<p:selectOneRadio required="true" tabindex="12"
+									value="#{visitInformationReportController.visitInformationReportDTO.reportExportFormat}">
+									<f:selectItem itemValue="1" itemLabel="PDF" />
+									<f:selectItem itemValue="2" itemLabel="EXCEL(xlsx)" />
+									<f:selectItem itemValue="3" itemLabel="HTML" />
+								</p:selectOneRadio>
+							</p:panel>
+
+
+							<shiro:hasPermission name="13990502:VIEW">
+								<p:commandButton id="b1" ajax="false" tabindex="13"
+									value="Generate Report" icon="pi pi-check" process="@this"
+									update="visitInformationReportForm"
+									actionListener="#{visitInformationReportController.exportReport()}" />
+							</shiro:hasPermission>
+
+							<p:commandButton id="b2" value="Reset" tabindex="14">
+								<p:ajax update="visitInformationReportForm" resetValues="true" />
+							</p:commandButton>
+
+						</h:form>
+						
+					</f:view>
+				</p:layoutUnit>
+				<!-- **************************** Body Start from Here **************************** -->
+
+			</p:layout>
+
+		</h:body>
+
+	</f:view>
+</shiro:hasPermission>
+</html>

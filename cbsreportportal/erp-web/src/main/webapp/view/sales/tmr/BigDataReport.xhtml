@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="13990504:VIEW">
+	<f:view contentType="text/html">
+		<h:head>
+			<f:facet name="first">
+				<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+				<title>TMR Portal - TMR Big Data Report</title>
+				<link type="text/css" rel="stylesheet"
+					href="/resources/css/customStyle.css"></link>
+			</f:facet>
+		</h:head>
+
+		<h:body class="customBody">
+			<p:layout fullPage="true">
+
+				<!-- **************************** Header Start from Here **************************** -->
+				<ui:include src="/view/common/header-footer.xhtml" />
+				<!-- **************************** Header End Here *********************************** -->
+
+
+				<!-- **************************** Side bar Menu Start from Here ********************* -->
+				<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+				<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+				<!-- **************************** Body Start from Here ****************************** -->
+				<p:layoutUnit position="center" id="center" style="border: 0px;">
+
+					<f:view>
+
+						<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+							draggable="false" closable="false" resizable="false">
+							<i class="pi pi-spinner pi-spin" style="font-size: 3rem"></i>
+						</p:dialog>
+
+						<p:fieldset legend="Download Big Data Reports:-" id="toggleable2"
+							class="customFieldset" toggleable="true" toggleSpeed="800"
+							collapsed="false">
+
+							<h:form id="bigDataReportForm1" class="customForm"
+								target="_blank">
+								<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder">
+									<p:panelGrid columns="3" layout="grid" styleClass="ui-noborder">
+										<p:outputLabel for="uddoktaAuditReport"
+											value="Uddokta Audit Report (Specific Date): "
+											class="customOutputLabel" />
+										<p:datePicker id="popupDatePicker1" class="customDatePicker"
+											showIcon="true" tabindex="1" required="true" readonlyInput="true"
+											value="#{bigDataReportController.reportSrcFileDate1}"
+											mindate="#{bigDataReportController.minDate}" maxdate="#{bigDataReportController.maxDate}" />
+										<p:commandButton id="uddoktaAuditReport" value="Download"
+											ajax="false"
+											onclick="PrimeFaces.monitorDownload(start, stop);"
+											icon="pi pi-arrow-down" styleClass="p-mr-2">
+											<p:fileDownload
+												value="#{bigDataReportController.getUddoktaAuditReport()}" />
+										</p:commandButton>
+									</p:panelGrid>
+								</p:panelGrid>
+							</h:form>
+
+
+							<h:form id="bigDataReportForm2" class="customForm"
+								target="_blank">
+								<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder">
+									<p:panelGrid columns="3" layout="grid" styleClass="ui-noborder">
+										<p:outputLabel for="posmManagementReport"
+											value="POSM Management Report (Specific Date): "
+											class="customOutputLabel" />
+										<p:datePicker id="popupDatePicker2" class="customDatePicker"
+											showIcon="true" tabindex="2" required="true" readonlyInput="true"
+											value="#{bigDataReportController.reportSrcFileDate2}"
+											mindate="#{bigDataReportController.minDate}" maxdate="#{bigDataReportController.maxDate}" />
+										<p:commandButton id="posmManagementReport" value="Download"
+											ajax="false" onclick="PrimeFaces.Download(start, stop);"
+											icon="pi pi-arrow-down" styleClass="p-mr-2">
+											<p:fileDownload
+												value="#{bigDataReportController.getPOSMManagementReport()}" />
+										</p:commandButton>
+									</p:panelGrid>
+								</p:panelGrid>
+							</h:form>
+
+							<h:form id="bigDataReportForm3" class="customForm"
+								target="_blank">
+								<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder">
+									<p:panelGrid columns="3" layout="grid" styleClass="ui-noborder">
+										<p:outputLabel for="competitorPOSMInformationReport"
+											value="Competitor POSM Info Report (Specific Date): "
+											class="customOutputLabel" />
+										<p:datePicker id="popupDatePicker3" class="customDatePicker"
+											showIcon="true" tabindex="3" required="true" readonlyInput="true"
+											value="#{bigDataReportController.reportSrcFileDate3}"
+											mindate="#{bigDataReportController.minDate}" maxdate="#{bigDataReportController.maxDate}" />
+										<p:commandButton id="competitorPOSMInformationReport"
+											value="Download" ajax="false"
+											onclick="PrimeFaces.Download(start, stop);"
+											icon="pi pi-arrow-down" styleClass="p-mr-2">
+											<p:fileDownload
+												value="#{bigDataReportController.getCompetitorPOSMInformationReport()}" />
+										</p:commandButton>
+									</p:panelGrid>
+								</p:panelGrid>
+							</h:form>
+						</p:fieldset>
+						
+					</f:view>
+				</p:layoutUnit>
+				<!-- **************************** Body End Here **************************** -->
+
+			</p:layout>
+
+		</h:body>
+
+	</f:view>
+</shiro:hasPermission>
+</html>

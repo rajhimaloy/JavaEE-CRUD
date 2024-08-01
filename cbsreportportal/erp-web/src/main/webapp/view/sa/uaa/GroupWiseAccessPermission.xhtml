@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="10010002:VIEW">
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Group Wise Access Permission</title>
+			<link type="text/css" rel="stylesheet"
+				href="/resources/css/customStyle.css"></link>
+		</f:facet>
+	</h:head>
+
+	<h:body class="customBody">
+		<p:layout fullPage="true">
+
+			<!-- **************************** Header Start from Here **************************** -->
+			<ui:include src="/view/common/header-footer.xhtml" />
+			<!-- **************************** Header End Here *********************************** -->
+
+
+			<!-- **************************** Side bar Menu Start from Here **************************** -->
+			<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+			<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+			<!-- **************************** Body Start from Here **************************** -->
+			<p:layoutUnit position="center" id="center" style="border: 0px;">
+
+				<h:form id="groupWiseAccessPermissionForm" class="customForm">
+					<p:growl id="growl" showDetail="true" sticky="true" life="3000" />
+					<!-- <p:messages id="messages" autoUpdate="true" showDetail="true" severity="fatal,info,warn" globalOnly="true" /> -->
+
+					<p:fieldset legend="Input Group for Access Permission"
+						id="toggleableGroupPanel" class="customFieldset" toggleable="true"
+						toggleSpeed="500">
+						<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+							<p:outputLabel for="groupID" value="Group ID: "
+								class="customOutputLabel" />
+							<p:inputText id="groupID" label="groupID" class="customInputText"
+								value="#{groupWiseAccessPermissionController.groupWiseAccessPermission.groupID}"
+								required="true" required-message="Please provide the Group ID.">
+								<p:ajax event="blur" update="groupWiseAccessPermissionList"
+									listener="#{groupWiseAccessPermissionController.handleAjaxEvent}" />
+							</p:inputText>
+						</p:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset legend="Group Wise Access Permission List"
+						id="toggleablePermissionListPanel" class="customFieldset"
+						toggleable="true" toggleSpeed="500">
+						<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder">
+							<p:dataTable id="groupWiseAccessPermissionList" var="gp"
+								scrollable="true" scrollHeight="200"
+								value="#{groupWiseAccessPermissionController.groupWiseAccessPermissionList}"
+								rowKey="#{groupWiseAccessPermissionController.groupWiseAccessPermission.groupID}"
+								reflow="true" rows="10" rowsPerPageTemplate="5,10,15,999"
+								paginator="true" paginatorPosition="bottom">
+
+								<p:column headerText="Screen ID" sortBy="#{gp.screenID}">
+									<h:outputText value="#{gp.screenID}" />
+								</p:column>
+
+								<p:column headerText="Screen Name" sortBy="#{gp.screenName}">
+									<h:outputText value="#{gp.screenName}" />
+								</p:column>
+								
+								<!-- <p:column headerText="#{MSG_0100['09']}">
+									<h:outputText
+										value="#{userGroupWisePermission.userScreen.userScreenID}" />
+								</p:column>
+
+								<p:column headerText="#{MSG_0100['10']}" width="40%">
+									<h:outputText
+										value="#{userGroupWisePermission.userScreen.userScreenName}" />
+								</p:column> -->
+
+								<p:column headerText="View">
+									<p:selectBooleanCheckbox id="hasViewPermission" class="customSelectBooleanCheckbox"
+										value="#{gp.hasViewPermission}" />
+								</p:column>
+
+								<p:column headerText="Save">
+									<p:selectBooleanCheckbox id="hasSavePermission" class="customSelectBooleanCheckbox"
+										value="#{gp.hasSavePermission}" />
+								</p:column>
+
+								<p:column headerText="Update">
+									<p:selectBooleanCheckbox id="hasUpdatePermission" class="customSelectBooleanCheckbox"
+										value="#{gp.hasUpdatePermission}" />
+								</p:column>
+
+								<p:column headerText="Delete">
+									<p:selectBooleanCheckbox id="hasDeletePermission" class="customSelectBooleanCheckbox"
+										value="#{gp.hasDeletePermission}" />
+								</p:column>
+							</p:dataTable>
+						</p:panelGrid>
+					</p:fieldset>
+
+					<shiro:hasPermission name="10010002:UPDATE">
+						<p:commandButton id="b1" value="Update"
+							process="groupWiseAccessPermissionForm"
+							actionListener="#{groupWiseAccessPermissionController.update()}"
+							update="growl groupWiseAccessPermissionForm" />
+					</shiro:hasPermission>
+
+					<p:commandButton id="b4" value="Reset">
+						<p:ajax update="toggleableGroupPanel" resetValues="true" />
+					</p:commandButton>
+
+				</h:form>
+
+			</p:layoutUnit>
+		</p:layout>
+	</h:body>
+
+</f:view>
+</shiro:hasPermission>
+</html>
+<!-- Developed By Rajib Kumer Ghosh -->
+
+<!-- <ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:param name="screen" value="0114" />
+	<ui:define name="content">
+		<p:fieldset>
+			<p:panelGrid columns="2" layout="grid" style="border:none"
+				styleClass="ui-panelgrid-blank"
+				columnClasses="ui-grid-col-2,ui-grid-col-4">
+
+				<p:outputLabel for="cmb06" value="#{MSG_0100['06']}" />
+				<p:selectOneMenu id="cmb06" widgetVar="wvr06" required="true"
+					value="#{userGroupWiseAccessPermissionController.groupId}">
+
+					<f:selectItem itemValue="#{null}" />
+					<f:selectItems var="userGroup"
+						value="#{userGroupWiseAccessPermissionController.userGroupList}"
+						itemValue="#{userGroup.groupId}"
+						itemLabel="#{userGroup.groupId} : #{userGroup.groupName}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+		</p:fieldset>
+
+		<div class="EmptyBox5"></div>
+		<p:dataTable id="grd0114" var="userGroupWisePermission"
+			value="#{userGroupWisePermissionController.userPermissionList}"
+			reflow="true" rows="10" rowsPerPageTemplate="5,10,15"
+			paginator="true" paginatorPosition="bottom">
+
+			<p:column headerText="#{MSG_0100['09']}">
+				<h:outputText
+					value="#{userGroupWisePermission.userScreen.userScreenId}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0100['10']}" width="40%">
+				<h:outputText
+					value="#{userGroupWisePermission.userScreen.userScreenName}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0000['01']}">
+				<p:selectBooleanCheckbox value="#{userGroupWisePermission.viewable}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0000['02']}">
+				<p:selectBooleanCheckbox value="#{userGroupWisePermission.addable}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0000['03']}">
+				<p:selectBooleanCheckbox value="#{userGroupWisePermission.editable}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0000['04']}">
+				<p:selectBooleanCheckbox
+					value="#{userGroupWisePermission.deletable}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:panelGrid columns="1" layout="grid" style="border:none"
+			styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2">
+
+			<p:commandButton value="#{MSG_0000['03']}" validateClient="true"
+				partialSubmit="true" async="true" process="@this cmb06 grd0114"
+				actionListener="#{userGroupWiseAccessPermissionController.update()}">
+
+				<p:confirm icon="ui-icon-alert" />
+			</p:commandButton>
+		</p:panelGrid>
+	</ui:define>
+</ui:composition> -->

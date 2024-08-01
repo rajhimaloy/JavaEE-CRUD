@@ -1,0 +1,138 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+	<!-- **************************** Side bar Menu Start from Here **************************** -->
+	<p:layoutUnit position="west" size="250" header="Menu" collapsible="true" closeOnEscape="true" global="true"
+		showEffect="fade" hideEffect="fade" style="background-color: #ffffff; border: 0px;">
+		<shiro:hasPermission name="99999:VIEW">			
+		</shiro:hasPermission>
+		
+		<!-- <p:accordionPanel>
+			<p:tab title="Administration">
+				<p:menu>
+					<p:submenu>					
+						<shiro:hasPermission name="10003:VIEW">
+							<p:menuitem value="User Group Setup" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="10004:VIEW">
+							<p:menuitem value="Assign Permission to User Group" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+					</p:submenu>
+				</p:menu>
+			</p:tab>
+
+			<p:separator />
+		</p:accordionPanel> -->
+	
+	    <!--<p:accordionPanel>
+			<p:tab title="Administration">
+				<p:menu>
+					<p:submenu>					
+						<shiro:hasPermission name="10003:VIEW">
+							<p:menuitem value="Role Setup" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="10004:VIEW">
+							<p:menuitem value="Assign Permission to Role" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="10005:VIEW">
+							<p:menuitem value="User Setup" outcome="/view/sa/userSetup.bank" />
+						</shiro:hasPermission>						
+						<shiro:hasPermission name="10006:VIEW">
+							<p:menuitem value="Assign User to Role" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="10008:VIEW">
+							<p:menuitem value="Activate User" outcome="/view/sa/userSetup.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="10009:VIEW">
+							<p:menuitem value="Change Password" outcome="/view/sa/uaa/UserGroupSetup.bank" />
+						</shiro:hasPermission>
+					</p:submenu>
+				</p:menu>
+			</p:tab>
+
+			<p:separator />
+
+			<p:tab title="CIF Report">
+				<p:menu>
+					<p:submenu>
+						<shiro:hasPermission name="11003:VIEW">
+							<p:menuitem value="Customer Setup" outcome="/view/cif/customer.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="11004:VIEW">
+							<p:menuitem value="Customer Information Report" outcome="/view/cif/reportPreview.bank" />
+						</shiro:hasPermission>
+					</p:submenu>
+				</p:menu>
+			</p:tab>
+
+			<p:separator />
+
+			<p:tab title="Deposit Report">
+				<p:menu>
+					<p:submenu>
+						<shiro:hasPermission name="12003:VIEW">
+							<p:menuitem value="Deposit Information Report" outcome="/view/cif/reportPreview.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="12004:VIEW">
+							<p:menuitem value="Deposit Transaction Report" outcome="/view/cif/reportPreview.bank" />
+						</shiro:hasPermission>
+					</p:submenu>
+				</p:menu>
+			</p:tab>
+
+			<p:separator />
+
+			<p:tab title="Loan Report">
+				<p:menu>
+					<p:submenu>
+						<shiro:hasPermission name="13003:VIEW">
+							<p:menuitem value="Loan Information Report" outcome="/view/lon/loanInformationReport.bank" />
+						</shiro:hasPermission>
+						<shiro:hasPermission name="13004:VIEW">
+							<p:menuitem value="Loan Transaction Report" outcome="/view/lon/loanInformationReport.bank" />
+						</shiro:hasPermission>
+					</p:submenu>
+				</p:menu>
+			</p:tab>
+		</p:accordionPanel> -->
+
+		<!-- <p:panelMenu>
+			<p:submenu label="Trade Report">
+				<shiro:hasPermission name="0501:VIEW">
+					<p:menuitem value="Trade Information Report" outcome="/view/lon/loanInformationReport.bank" />
+				</shiro:hasPermission>
+				<shiro:hasPermission name="0502:VIEW">
+					<p:menuitem value="Trade Transaction Report" outcome="/view/lon/loanInformationReport.bank" />
+				</shiro:hasPermission>
+				<p:submenu label="LC Report">
+					<shiro:hasPermission name="0503:VIEW">
+						<p:menuitem value="LC Information Report" outcome="/view/lon/loanInformationReport.bank" />
+					</shiro:hasPermission>
+					<shiro:hasPermission name="0504:VIEW">
+						<p:menuitem value="LC Transaction Report" outcome="/view/lon/loanInformationReport.bank" />
+					</shiro:hasPermission>
+				</p:submenu>
+			</p:submenu>
+			<p:submenu label="Remitance Report">
+				<shiro:hasPermission name="0601:VIEW">
+					<p:menuitem value="Remitance Information Report" outcome="/view/lon/loanInformationReport.bank" />
+				</shiro:hasPermission>
+				<shiro:hasPermission name="0602:VIEW">
+					<p:menuitem value="Remitance Transaction Report" outcome="/view/lon/loanInformationReport.bank" />
+				</shiro:hasPermission>
+			</p:submenu>
+		</p:panelMenu> -->
+				
+		<!-- **************************** Side bar Dynamic Menu Start from Here **************************** -->
+		<ui:include src="/view/common/dynamic-menu.xhtml" />
+		<!-- **************************** Side bar Dynamic Menu End Here **************************** -->
+
+	</p:layoutUnit>
+	<!-- **************************** Side bar Menu End Here **************************** -->
+
+</ui:composition>

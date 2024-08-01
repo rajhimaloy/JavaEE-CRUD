@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+	<h:head>
+		<title><h:outputText value="#{MSG_0000['0000']}" /></title>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+		<h:outputStylesheet library="sentinel-layout"
+			name="css/font-icon-layout.css" />
+		<h:outputStylesheet library="sentinel-layout"
+			name="css/sentinel-layout.css" />
+		<h:outputStylesheet library="sentinel-layout"
+			name="css/core-layout.css" />
+
+		<h:outputScript library="sentinel-layout" name="js/login.js" />
+	</h:head>
+
+	<h:body class="fontRegular login-back white-back">
+		<div id="login-header"
+			class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent10">
+
+			<a id="login-logo"> <h:graphicImage name="images/LOGO.svg"
+					styleClass="Fleft" library="sentinel-layout" /> <span
+				class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span
+					class="softblue"><h:outputText value="#{MSG_0000['0005']}" /></span><span
+					class="hardblue"><h:outputText value="#{MSG_0000['0006']}" /></span></span>
+			</a>
+			<div class="EmptyBox10"></div>
+		</div>
+
+		<div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10"
+			id="login-box">
+			<div class="Container100">
+
+				<div role="1"
+					class="TexAlCenter Animated05 BoxSizeBorder TabBtn TabBtnActiveLeft">
+					<div class="Container80 Fnone MarAuto FontBold">
+						<i class="icon-lock"></i>
+						<h:outputText value="#{MSG_0000['09']}" />
+					</div>
+				</div>
+
+				<div id="TAB1"
+					class="Container90 Fnone MarAuto TexAlCenter TabContent">
+
+
+					<!-- <h:form prependId="false">
+						<div class="EmptyBox30"></div>
+						<p:messages closable="true" styleClass="Container85 Fnone MarAuto" />
+						<p:focus for="txt01" />
+
+						<div class="EmptyBox20"></div>
+						<p:inputText id="txt01" required="true" autocomplete="off"
+							maxlength="8" value="#{userAuthenticationController.userId}"
+							label="#{MSG_0100['01']}" styleClass="Container80 Fnone MarAuto Fs18" />
+
+						<div class="EmptyBox10"></div>
+						<p:password id="txt02" required="true" feedback="false"
+							autocomplete="off" maxlength="16"
+							value="#{userAuthenticationController.password}"
+							styleClass="Container80 Fnone MarAuto Fs18"
+							label="#{MSG_0100['02']}" placeholder="#{MSG_0100['02']}" />
+
+						<div class="EmptyBox30"></div>
+						<p:commandButton ajax="false" value="login"
+							validateClient="true" styleClass="Fs16"
+							action="#{userAuthenticationController.login()}" />
+
+						<div class="EmptyBox50"></div>
+					</h:form> -->
+
+					<p:outputPanel>
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<p:fieldset legend="Login to CBS Report Portal"
+									style="margin-bottom:20px">
+
+									<p:tabView>
+										<p:tab title="Login">
+
+											<h:form id="login">
+												<p:messages id="messages" globalOnly="true" />
+
+												<h:panelGrid columns="3" cellpadding="5"
+													style="margin: 0 auto;">
+
+													<p:outputLabel for="userName" value="User Name" />
+													<p:inputText id="userName"
+														value="#{userAuthenticationController.userName}" />
+													<p:message for="userName" />
+
+													<p:outputLabel for="password" value="Password" />
+													<p:inputText type="password" id="password"
+														value="#{userAuthenticationController.password}" />
+													<p:message for="password" />
+
+													<!-- <p:commandButton id="submit" update="@form" value="Login"
+														action="#{userAuthenticationController.login()}" /> -->
+													<p:commandButton ajax="false" value="login"
+														validateClient="true" styleClass="Fs16"
+														action="#{userAuthenticationController.login()}" />
+												</h:panelGrid>
+											</h:form>
+										</p:tab>
+										<p:tab title="Chairman Speech">
+											<h:panelGrid columns="2" cellpadding="10">
+												<p:graphicImage library="images" name="logo.png"
+													width="150px" height="60px" />
+												<h:outputText
+													value="ABC Bank Limited is a commercial bank in Bangladesh registered under 
+									the Companies Act 1994. It was established on June 3, 2001. ABC Bank had 
+									132 branches as of March,2019 .[3] Its head office is located at Hadi Mansion, 
+									2, Dilkusha C/A, Dhaka-1000, Bangladesh." />
+											</h:panelGrid>
+										</p:tab>
+									</p:tabView>
+
+									<!-- <div style="text-align: center; font-size: 12px; font-style: italic; padding: 10px;">Developed By @Rajib Kumer Ghosh. Snr. Software Engineer, GenWeb2 Ltd.</div> -->
+									<div
+										style="text-align: center; font-size: 12px; font-style: italic; padding: 10px;">Developed
+										By @GenWeb2 Ltd.</div>
+								</p:fieldset>
+							</div>
+						</div>
+					</p:outputPanel>
+
+
+
+				</div>
+			</div>
+		</div>
+	</h:body>
+</f:view>

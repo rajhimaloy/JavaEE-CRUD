@@ -1,0 +1,88 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div id="layout-header" class="Unselectable fontRegular">
+		<h:link outcome="/module/sa/HomePage.jsf" id="layout-logo">
+			<h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout" />
+
+			<span class="Fs19 FontTitilliumSemiBoldItalic Fleft">
+				<span class="softblue"><h:outputText value="Rajib" /></span>
+				<span class="hardblue"><h:outputText value="Ghosh" /></span>
+			</span>
+		</h:link>
+		
+
+			<span class="Fs19 FontTitilliumSemiBoldItalic Fleft">
+				<span class="softblue">					
+					<p:commandLink id="b1" value="Logout_linkww"
+							actionListener="#{userAuthenticationController.logout()}" />
+				</span>
+			</span>
+	
+		
+		<!-- <div>	
+			<span class="Fs19 FontTitilliumSemiBoldItalic Fleft">
+				<span class="hardblue">
+					<p:commandButton id="b1" value="Logout_Button"
+							actionListener="#{userAuthenticationController.logout()}" />
+				</span>
+			</span>
+		</div> -->
+		
+		<ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+			<li class="Fleft BordRadHalf TexAlCenter">
+				<div>
+					<p:commandButton id="b2" value="Logout_Button"
+							actionListener="#{userAuthenticationController.logout()}" />
+				</div>
+			</li>
+		</ul>
+		
+
+		<!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+		<ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+			<li class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive">
+				<i class="icon-th-1"></i>
+			</li>
+		</ul>
+		<!-- ****** END ****** -->
+	</div>
+</f:view>
+
+
+
+
+<!-- <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:layoutUnit position="north" size="80" resizable="true"
+		closable="true" collapsible="true">
+			<div class="ui-g-2" style="padding: 0px;">
+				<a class="navbar-brand"
+					href="/module/sa/HomePage.jsf"> <h:graphicImage
+						library="images" name="logo.png" width="200px" height="60px" />
+				</a>
+			</div>
+
+			<div class="ui-g-7" style="font-size: 32px; color: #1ab060; text-align:center">
+				Core Banking System Report Portal.
+			</div>
+
+			<div class="ui-g-2" style="font-size:11px; color:#203bce; text-align:right">
+				Logged-in as:  #{request.userPrincipal.name} <br />
+				Branch:  0001 - Gulshan <br />
+				System Date:  26-May-2019 <br />
+				
+			</div>
+			
+			<div class="ui-g-1">
+				<p:commandButton value="Logout" action="#{userAuthenticationController.logout}" />
+			</div>
+	</p:layoutUnit>
+</ui:composition> -->

@@ -1,0 +1,76 @@
+/* Rajib */
+.customBody {
+	font-size: small;
+}
+
+.customLayoutUnit {
+	background-color: #ffffff;
+	border: 0px;
+}
+
+.customPanel {
+	margin-bottom: 10px;
+}
+
+.customForm {
+	margin-bottom: 10px;
+}
+
+.customFieldset {
+	margin-bottom: 10px;
+}
+
+.customOutputLabel {
+	color: #645f60;
+	font-size: small;
+}
+
+.customInputText {
+	color: blue;
+}
+
+.customSelectOneMenu {
+	width: auto;
+}
+
+.customSelectBooleanCheckbox {
+	color: blue;
+}
+
+.customDatePicker {
+	color: blue;
+}
+
+.customCalendar {
+	
+}
+
+.customDataTable {
+	color: #555555;
+	font-size: small;
+}
+
+.ui-panel, div.ui-state-hover {
+	margin: 0 0 10px 0;
+	width: auto;
+}
+
+.ui-dashboard-column {
+	width: 220px;
+}
+
+.dashboard-panelGrid {
+	margin: 10px 0 10px 0;
+}
+
+.dashboard-pieChart {
+	border: 1px solid #a6c9e2;
+	border-radius: 5px;
+}
+
+.customButton-logout {
+	font-style: italic;
+	font-weight: 600;
+	font-size: 0.7em;
+	letter-spacing: 0.2em;
+}

@@ -1,0 +1,149 @@
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/component"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+	<ui:param name="screen" value="0112" />
+	<ui:define name="content">
+		<p:importEnum allSuffix="ALL_ENUM_VALUES" var="statusList"
+			type="com.mfsbd.common.enumeration.Status" />
+
+		<p:fieldset>
+			<p:panelGrid id="pnl0112" columns="4" layout="grid"
+				styleClass="ui-panelgrid-blank"
+				columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+
+				<p:outputLabel for="txt01" value="#{MSG_0100['01']}" />
+				<p:inputMask id="txt01" required="true" maxlength="8"
+					mask="99999999" autocomplete="off"
+					value="#{userSetupController.user.userId}">
+
+					<p:ajax async="true" event="blur" ignoreAutoUpdate="true"
+						listener="#{userSetupController.loadUser()}" partialSubmit="true"
+						process="@this" oncomplete="loadUser(xhr, status, args)" />
+				</p:inputMask>
+
+				<p:outputLabel for="cmb06" value="#{MSG_0100['06']}"
+					styleClass="Fright" />
+				<p:selectOneMenu id="cmb06" widgetVar="wvr06" required="true"
+					value="#{userSetupController.user.groupId}">
+
+					<f:selectItem itemValue="#{null}" />
+					<f:selectItems var="userGroup"
+						value="#{userSetupController.userGroupList}"
+						itemValue="#{userGroup.groupId}"
+						itemLabel="#{userGroup.groupId} : #{userGroup.groupName}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="txt11" value="#{MSG_0100['11']}" />
+				<p:inputText id="txt11" readonly="true" />
+
+				<p:outputLabel for="opt08" value="#{MSG_0100['08']}"
+					styleClass="Fright" />
+				<p:selectOneRadio id="opt08" widgetVar="wvr08" required="true"
+					value="#{userSetupController.user.statusId}">
+
+					<f:selectItems value="#{statusList.ALL_VALUES}" var="status"
+						itemValue="#{status.value}" itemLabel="#{status.label}" />
+				</p:selectOneRadio>
+
+				<p:outputLabel for="txt02" value="#{MSG_0100['02']}" />
+				<p:password id="txt02" feedback="false" autocomplete="off"
+					maxlength="32" value="#{userSetupController.password}"
+					binding="#{userSetupController.passwordComponent}" />
+
+				<p:outputLabel for="txt12" value="#{MSG_0100['12']}"
+					styleClass="Fright" />
+				<p:inputText id="txt12" value="#{userSetupController.user.remarks}" />
+
+				<p:outputLabel for="txt05" value="#{MSG_0100['05']}" />
+				<p:password id="txt05" feedback="false" autocomplete="off" />
+			</p:panelGrid>
+		</p:fieldset>
+
+		<p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank"
+			columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2">
+
+			<p:commandButton id="btnReset" widgetVar="btn-00"
+				value="#{MSG_0000['00']}" type="reset" resetValues="true"
+				onclick="resetForm()" />
+
+			<p:commandButton widgetVar="btn-02" value="#{MSG_0000['02']}"
+				async="true" process="@this pnl0112" partialSubmit="true"
+				validateClient="true" actionListener="#{userSetupController.save()}" />
+
+			<p:commandButton widgetVar="btn-03" value="#{MSG_0000['03']}"
+				async="true" process="@this pnl0112"
+				actionListener="#{userSetupController.update()}"
+				partialSubmit="true" validateClient="true">
+
+				<p:confirm icon="ui-icon-alert" />
+			</p:commandButton>
+		</p:panelGrid>
+
+		<p:dataTable id="grd0112" var="userProfile" selectionMode="single"
+			value="#{userSetupController.userProfileList}" reflow="true"
+			lazy="true" rows="10" rowsPerPageTemplate="5,10,15" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom">
+
+			<p:ajax event="rowSelect" async="true" immediate="true" delay="none"
+				ignoreAutoUpdate="true" oncomplete="load(xhr, status, args)"
+				listener="#{userSetupController.onRowSelect}" />
+
+			<c:set var="userGroup"
+				value="#{userProfile.groupId} : #{userProfile.groupName}" />
+
+			<p:column headerText="#{MSG_0100['01']}">
+				<h:outputText value="#{userProfile.userId}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0100['11']}">
+				<h:outputText value="#{userProfile.fullName}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0100['16']}">
+				<h:outputText value="#{userGroup}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0100['08']}">
+				<cc:status value="#{userProfile.statusId}" />
+			</p:column>
+		</p:dataTable>
+
+		<h:outputScript>
+			function resetForm() {
+				saveMode();
+				PF('wvr06').selectValue('');
+				PF('wvr08').unselect(PF('wvr08').jq.find('input:radio').parent().next());
+			}
+
+			function loadUser(xhr, status, args) {
+				var user = args.user;
+				$('#txt11').val(user.fullName);
+				if(user.groupId) {
+					updateMode();
+					$('#txt12').val(user.remarks);
+					PF('wvr06').selectValue(user.groupId);
+					PF('wvr08').jq.find('input:radio[value="'+user.statusId+'"]').parent().next().trigger('click.selectOneRadio');
+				} else {
+					saveMode();
+				}
+			}
+
+			function load(xhr, status, args) {
+				updateMode();
+				var user = args.user;
+				$('#txt01').val(user.userId);
+				$('#txt11').val(user.fullName);
+				$('#txt12').val(user.remarks);
+				PF('wvr06').selectValue(user.groupId);
+				PF('wvr08').jq.find('input:radio[value="'+user.statusId+'"]').parent().next().trigger('click.selectOneRadio');
+			}
+		</h:outputScript>
+	</ui:define>
+</ui:composition>

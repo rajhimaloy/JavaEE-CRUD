@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>CRUD</title>
+</h:head>
+<h:body>
+	<h1>CRUD</h1>
+	<h:form>
+		<h:panelGrid columns="12" cellpadding="5">
+			<h:outputText value="Name " />
+			<p:inputText value="#{bookController.name}" />
+
+			<h:outputText value="Author " />
+			<p:inputText value="#{bookController.author}" />
+
+			<h:outputText value="Category " />
+			<p:inputText value="#{bookController.category}" />
+
+			<h:outputText value="Year " />
+			<p:inputText value="#{bookController.year}" />
+
+			<h:outputText value="Price " />
+			<p:inputText value="#{bookController.price}" />
+
+			<p:commandButton value="Add" icon="fa fa-fw fa-plus"
+				action="#{bookController.createBook()}" />
+		</h:panelGrid>
+	</h:form>
+
+	<h:form id="form">
+		<p:dataTable value="#{bookController.getAllBooks()}" var="book"
+			style="margin: 2em;" rowKey="#{book.id}">
+			<p:column headerText="Name">
+				<h:outputText value="#{book.name}" />
+			</p:column>
+
+			<p:column headerText="Year">
+				<h:outputText value="#{book.year}" />
+			</p:column>
+
+			<p:column headerText="Author">
+				<h:outputText value="#{book.author}" />
+			</p:column>
+
+			<p:column headerText="Category">
+				<h:outputText value="#{book.category}" />
+			</p:column>
+
+			<p:column headerText="Price">
+				<h:outputText value="$#{book.price}" />
+			</p:column>
+
+			<p:column style="width:100px;text-align: center">
+				<p:commandButton icon="fa fa-pencil" update=":form:bookEdit"
+					oncomplete="PF('editDialog').show()">
+					<f:setPropertyActionListener value="#{book}"
+						target="#{bookController.selectedBook}" />
+				</p:commandButton>
+				<p:commandButton action="#{bookController.deleteBook(book)}"
+					icon="fa fa-trash"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		<p:dialog header="Edit Book" widgetVar="editDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="bookEdit" style="text-align:center;">
+				<p:panelGrid columns="2"
+					rendered="#{not empty bookController.selectedBook}"
+					columnClasses="label,value">
+
+					<h:outputText value="Name: " />
+					<p:inputText value="#{bookController.selectedBook.name}" />
+
+					<h:outputText value="Category: " />
+					<p:inputText value="#{bookController.selectedBook.category}" />
+
+					<h:outputText value="Author: " />
+					<p:inputText value="#{bookController.selectedBook.author}" />
+
+					<h:outputText value="Price: $" />
+					<p:inputText value="#{bookController.selectedBook.price}" />
+
+					<h:outputText value="Year: " />
+					<p:inputText value="#{bookController.selectedBook.year}" />
+				</p:panelGrid>
+
+				<p:commandButton value="Update" icon="fa fa-fw fa-pencil"
+					action="#{bookController.updateBook()}" />
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

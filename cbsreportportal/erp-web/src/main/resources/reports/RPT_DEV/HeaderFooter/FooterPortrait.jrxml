@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2020-07-19T20:43:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FooterPortrait" pageWidth="523" pageHeight="842" columnWidth="523" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0be15018-31f6-491d-a4ea-70c856d60433">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rajibkg_ds_oracle_rpt"/>
+	<parameter name="ReportPrintingUser" class="java.lang.String"/>
+	<parameter name="SEARCHING_CRITERIA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 
+			$P{SEARCHING_CRITERIA} AS SEARCHING_CRITERIA,
+			$P{ReportPrintingUser} AS REPORT_USER
+		FROM DUAL]]>
+	</queryString>
+	<field name="SEARCHING_CRITERIA" class="java.lang.String"/>
+	<field name="REPORT_USER" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="4" width="380" height="12" isPrintWhenDetailOverflows="true" uuid="a033c7b6-040d-4ed9-a7c2-b52d6d46d66a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement markup="html">
+					<font fontName="Arial Narrow" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Searching Criteria :</b> "+$F{SEARCHING_CRITERIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="dd-mmm-yyyy h:mm a">
+				<reportElement x="390" y="4" width="132" height="12" uuid="5dcf364a-534d-4ef4-9c83-fd196fbf9811"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
+					<font fontName="Arial Narrow" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Printing Date  :</b> "+new SimpleDateFormat("dd-MMM-yyyy : h:mm a").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="1" width="523" height="1" uuid="e597884a-757d-4d0f-a0be-5d9c70d8f358">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="390" y="17" width="132" height="12" uuid="01bcb8a2-f088-4d5b-afe1-00e0095abc50"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
+					<font fontName="Arial Narrow" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Printing User  :  </b>"+$F{REPORT_USER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Master">
+				<reportElement x="156" y="18" width="186" height="11" uuid="4f93a02e-e3e9-4df0-9e28-0af2a713ca3a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page No : "+$V{MASTER_CURRENT_PAGE}+" of "+$V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.banks.erp</groupId>
+		<artifactId>cbsreportportal</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.banks.web</groupId>
+	<artifactId>erp-web</artifactId>
+	<packaging>war</packaging>
+	<name>erp-web</name>
+	<description>Report Portal Web Module</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Primefaces Part Start Here -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+		</dependency>
+		<!-- Primefaces Part End Here -->
+
+		<!-- Security Part Start Here -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-faces</artifactId>
+		</dependency>
+		<!-- Security Part End Here -->
+		
+		<!-- JJWT(Java Web Token - Web API) Version -->
+			<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>com.banks.library</groupId>
+			<artifactId>erp-library</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.banks.sa</groupId>
+			<artifactId>sa-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.banks.sa</groupId>
+			<artifactId>sa-core</artifactId>
+			<version>${project.version}</version>
+			<!-- <optional>true</optional> -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.banks.sales</groupId>
+			<artifactId>sales-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.banks.sales</groupId>
+			<artifactId>sales-core</artifactId>
+			<version>${project.version}</version>
+			<!-- <optional>true</optional> -->
+		</dependency>
+	</dependencies>
+</project>

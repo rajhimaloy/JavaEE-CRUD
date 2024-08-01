@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2021-06-17T10:59:37 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HeaderLandscape" pageWidth="770" pageHeight="487" orientation="Landscape" columnWidth="770" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ce9b152c-0673-4b33-bf32-787e011fc0f2">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rajibkg_ds_oracle_rpt"/>
+	<parameter name="ORGID" class="java.lang.String">
+		<parameterDescription><![CDATA[ORGANIZATION ID FOR ORG NAME]]></parameterDescription>
+		<defaultValueExpression><![CDATA[$P{ORGID}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGIN_BRANCH_CODE" class="java.lang.String">
+		<parameterDescription><![CDATA[This is for Subreport Header]]></parameterDescription>
+		<defaultValueExpression><![CDATA[$P{LOGIN_BRANCH_CODE}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="RDOREPORTNUMBER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{RDOREPORTNUMBER}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FromDate" class="java.util.Date"/>
+	<parameter name="ToDate" class="java.util.Date"/>
+	<parameter name="DateType" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateFormat" class="java.lang.String">
+		<parameterDescription><![CDATA[This is for the Format of Date Fields]]></parameterDescription>
+		<defaultValueExpression><![CDATA["dd-MMM-yyyy"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateOption" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{DateType} == 2 ? "Date From: "+new SimpleDateFormat($P{DateFormat}).format($P{FromDate})+" To: "+new SimpleDateFormat($P{DateFormat}).format($P{ToDate}):($P{DateType} == 1 ? "As on Date: "+new SimpleDateFormat($P{DateFormat}).format($P{FromDate}):"")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+			oic.oicorgid AS oicOrgID, 
+			oic.oicOrgName AS oicOrgName, 
+			oic.oicOrgShortName AS oicOrgShortName, 
+			oic.oicOrgAddress AS oicOrgAddress, 
+    		bic.bicBranchCode AS bicBranchCode, 
+			bic.bicBranchName AS bicBranchName, 
+			bic.bicbranchaddress AS bicBranchAddress,
+    		rdo.rdoReportID AS rdoReportID, 
+			rdo.rdoreportnumber AS rdoreportnumber, 
+			rdo.rdoreportname AS rdoReportName, 
+			rdo.rdoisdisplayfullorgname AS rdoIsDisplayFullOrgName
+		FROM sys_orginfoandconfig oic, sys_branchinfoandconfig bic, sys_reportdisplayoption rdo
+		WHERE oic.oicorgid = $P{ORGID}
+		AND bic.bicBranchCode = $P{LOGIN_BRANCH_CODE}
+		AND rdo.rdoreportid = $P{RDOREPORTNUMBER}]]>
+	</queryString>
+	<field name="OICORGID" class="java.lang.String"/>
+	<field name="OICORGNAME" class="java.lang.String"/>
+	<field name="OICORGSHORTNAME" class="java.lang.String"/>
+	<field name="OICORGADDRESS" class="java.lang.String"/>
+	<field name="BICBRANCHCODE" class="java.lang.String"/>
+	<field name="BICBRANCHNAME" class="java.lang.String"/>
+	<field name="BICBRANCHADDRESS" class="java.lang.String"/>
+	<field name="RDOREPORTID" class="java.lang.String"/>
+	<field name="RDOREPORTNAME" class="java.lang.String"/>
+	<field name="RDOISDISPLAYFULLORGNAME" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="3" width="669" height="17" uuid="6973cd9e-db48-4670-bc7d-ffb2c3b03bf0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDOISDISPLAYFULLORGNAME} ==true?$F{OICORGNAME}:$F{OICORGSHORTNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="37" width="669" height="15" uuid="e930e55a-eeb2-4646-b135-9058d6ff1eca">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BICBRANCHADDRESS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="21" width="81" height="15" uuid="b82d525c-37f3-4b13-871c-56b5912fd7da">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Branch(Login):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="21" width="588" height="15" uuid="0f8ca8cc-f3da-4f13-bf09-adaa308d760c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BICBRANCHCODE} + " - " + $F{BICBRANCHNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="59" width="88" height="15" uuid="f33e4afe-48cb-4365-8803-743584c586b0">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="89" y="59" width="581" height="15" uuid="fa649c7a-0012-4c95-a35c-7118143ea38d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{RDOREPORTNUMBER}== null || $P{RDOREPORTNUMBER}.isEmpty() == true) ?"Report Name":$F{RDOREPORTNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="76" width="669" height="15" uuid="f29ddab0-ee95-407d-9261-3808c6498de5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DateOption}]]></textFieldExpression>
+			</textField>
+			<image vAlign="Middle">
+				<reportElement x="681" y="11" width="88" height="34" uuid="15e35fa5-3bc8-49dd-9dd9-a83d7a540dfb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA["reports/RPT_DEV/HeaderFooter/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

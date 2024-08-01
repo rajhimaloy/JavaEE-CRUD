@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="10010001:VIEW">
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>User Group Setup</title>
+			<link type="text/css" rel="stylesheet" href="/resources/css/customStyle.css"></link>
+		</f:facet>
+	</h:head>
+
+	<h:body class="customBody">
+		<p:layout fullPage="true">
+
+			<!-- **************************** Header Start from Here **************************** -->
+			<ui:include src="/view/common/header-footer.xhtml" />
+			<!-- **************************** Header End Here *********************************** -->
+
+
+			<!-- **************************** Side bar Menu Start from Here **************************** -->
+			<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+			<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+			<!-- **************************** Body Start from Here **************************** -->
+			<p:layoutUnit position="center" id="center" style="border: 0px;">
+
+				<h:form id="userGroupSetupForm" class="customForm">
+					<p:growl id="growl" showDetail="true" sticky="true" life="3000" />
+					<!-- <p:messages id="messages" autoUpdate="true" showDetail="true" severity="fatal,info,warn" globalOnly="true" /> -->
+
+					<p:fieldset legend="User Group Informantion Setup" id="toggleable" class="customFieldset"
+						toggleable="true" toggleSpeed="500">
+						<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+
+							<p:outputLabel for="groupId" value="User Group ID: " class="customOutputLabel" />
+							<p:inputText id="groupId" label="groupId" class="customInputText" tabindex="1"
+								value="#{userGroupSetupController.userGroup.groupId}"
+								required="true" placeholder="User Group ID"
+								required-message="Please provide the User Group ID." />
+							<!-- <p:message id="messageForGroupId" for="groupId"></p:message> -->
+
+							<p:outputLabel for="groupName" value="User Group Name: "
+								class="customOutputLabel" />
+							<p:inputText id="groupName" class="customInputText" tabindex="2"
+								value="#{userGroupSetupController.userGroup.groupName}"
+								required="true" placeholder="User Group Name"
+								required-message="Please provide the User Group Name." />
+
+							<p:outputLabel for="statusId" value="Is Active?: "
+								class="customOutputLabel" />
+							<p:selectBooleanCheckbox id="statusId" class="customSelectBooleanCheckbox" tabindex="3"
+								value="#{userGroupSetupController.userGroup.statusId}" />
+
+							<p:outputLabel for="popup" value="Group Creation Date:"
+								class="customOutputLabel" />
+							<!-- <p:calendar id="popup" class="customDatePicker" showOn="button"
+								value="#{userGroupSetupController.userGroup.groupCreationDate}" /> -->
+							<p:datePicker id="popup" showIcon="true" class="customDatePicker" tabindex="4"
+								value="#{userGroupSetupController.userGroup.groupCreationDate}" placeholder="Group Creation Date" />
+
+						</p:panelGrid>
+					</p:fieldset>				
+					
+					<shiro:hasPermission name="10010001:SAVE">
+						<p:commandButton id="b1" value="Save" process="userGroupSetupForm" icon="save" tabindex="5"
+							onclick="if(!confirm('You are Saving information..!')) return false;"
+							actionListener="#{userGroupSetupController.saveData()}" 
+							update="growl userGroupList userGroupSetupForm" />
+					</shiro:hasPermission>
+
+					<shiro:hasPermission name="10010001:UPDATE">
+						<p:commandButton id="b2" value="Update" process="userGroupSetupForm" icon="edit" tabindex="6"
+							onclick="if(!confirm('You are Updating information..!')) return false;"
+							actionListener="#{userGroupSetupController.update()}"
+							update="growl userGroupList userGroupSetupForm" />
+					</shiro:hasPermission>
+
+					<shiro:hasPermission name="10010001:DELETE">
+						<p:commandButton id="b3" value="Delete" process="userGroupSetupForm" tabindex="7" 
+						    label="Action" look="danger" styleClass=" btn-sm btn-link" icon="trash"							
+							onclick="if(!confirm('You are Deleting information..!')) return false;"
+							actionListener="#{userGroupSetupController.delete()}"
+							update="growl userGroupList userGroupSetupForm" />
+					</shiro:hasPermission>
+						
+					<p:commandButton id="b4" value="Reset" icon="reset" tabindex="8">
+							<p:ajax update="toggleable" resetValues="true" />
+					</p:commandButton>
+					
+					<!-- <p:commandButton id="b1" value="Save" ajax="false"
+						actionListener="#{userGroupSetupController.saveData()}"
+						update="growl userGroupList userGroupSetupForm" /> -->						
+					<!-- <p:commandButton id="b1" value="Save" listener="#{userGroupSetupController.saveData()}">
+						<p:ajax execute="@form" update="growl userGroupList userGroupSetupForm" />
+					</p:commandButton> -->					
+					<!-- <p:commandButton id="b3" value="Delete" process="@form"
+						actionListener="#{userGroupSetupController.delete()}"
+						update="growl userGroupList userGroupSetupForm" /> -->
+					
+				<p:separator />
+				
+				<p:dataTable id="userGroupList" class="customDataTable" var="ug" tabindex="10"
+					value="#{userGroupSetupController.userGroupList}"
+					filteredValue="#{userGroupSetupController.userGroupFilterList}" widgetVar="userGroupList"
+					rowKey="#{userGroupSetupController.userGroup.groupId}"
+					rows="10" rowsPerPageTemplate="5,10,15,20,999" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					scrollable="true" scrollHeight="250">					
+					
+        			<f:facet name="header">
+            			<p:outputPanel style="text-align: right;">
+                			<h:outputText value="Search all: " />
+                			<p:inputText id="globalFilter" onkeyup="PF('userGroupList').filter()" style="width:150px;" placeholder="Enter keyword" tabindex="9"/>
+            			</p:outputPanel>
+        			</f:facet>
+
+					<p:column headerText="User Group ID" sortBy="#{ug.groupId}" filterBy="#{ug.groupId}" filterMatchMode="contains" tabindex="11">
+						<h:outputText value="#{ug.groupId}" />
+					</p:column>
+
+					<p:column headerText="User Group Name" sortBy="#{ug.groupName}" filterBy="#{ug.groupName}" filterMatchMode="contains" tabindex="12">
+						<h:outputText value="#{ug.groupName}" />
+					</p:column>
+
+					<p:column headerText="Status" sortBy="#{ug.statusId}" filterBy="#{ug.statusId}" filterMatchMode="contains" tabindex="13">
+						<h:outputText value="#{ug.statusId}" />
+					</p:column>
+
+					<p:column headerText="Group Creation Date" sortBy="#{ug.groupCreationDate}" filterBy="#{ug.groupCreationDate}" filterMatchMode="contains" tabindex="14">
+						<h:outputText value="#{ug.groupCreationDate}" />
+					</p:column>
+
+					<!-- <p:column style="width:100px;text-align: center">
+						<p:commandButton icon="fa fa-pencil" update=":form:groupSetupForm"
+							oncomplete="PF('editDialog').show()">
+							<f:setPropertyActionListener value="#{userGroup}"
+								target="#{userGroupSetupController.userGroup}" />
+						</p:commandButton>
+						<p:commandButton
+							action="#{userGroupSetupController.delete(userGroup)}"
+							icon="fa fa-trash"></p:commandButton>
+					</p:column> -->
+				</p:dataTable>
+
+				<!-- <p:dialog header="Edit Book" widgetVar="editDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="bookEdit" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty bookController.selectedBook}"
+							columnClasses="label,value">
+
+							<h:outputText value="Name: " />
+							<p:inputText value="#{bookController.selectedBook.name}" />
+
+							<h:outputText value="Category: " />
+							<p:inputText value="#{bookController.selectedBook.category}" />
+
+							<h:outputText value="Author: " />
+							<p:inputText value="#{bookController.selectedBook.author}" />
+
+							<h:outputText value="Price: $" />
+							<p:inputText value="#{bookController.selectedBook.price}" />
+
+							<h:outputText value="Year: " />
+							<p:inputText value="#{bookController.selectedBook.year}" />
+						</p:panelGrid>
+
+						<p:commandButton value="Update" icon="fa fa-fw fa-pencil"
+							action="#{bookController.updateBook()}" />
+					</p:outputPanel>
+				</p:dialog> -->
+				
+				</h:form>
+
+
+
+
+			</p:layoutUnit>
+			<!-- **************************** Body Start from Here **************************** -->
+
+		</p:layout>
+
+	</h:body>
+
+</f:view>
+</shiro:hasPermission>
+</html>
+<!-- Developed By Rajib Kumer Ghosh -->

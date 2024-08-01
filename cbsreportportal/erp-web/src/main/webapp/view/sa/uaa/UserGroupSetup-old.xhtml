@@ -1,0 +1,97 @@
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/component"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+	<ui:param name="screen" value="0113" />
+	<ui:define name="content">
+		<p:importEnum allSuffix="ALL_ENUM_VALUES" var="statusList"
+			type="com.mfsbd.common.enumeration.Status" />
+
+		<p:fieldset>
+			<p:panelGrid id="pnl0113" columns="2" layout="grid"
+				styleClass="ui-panelgrid-blank"
+				columnClasses="ui-grid-col-2,ui-grid-col-4">
+
+				<p:outputLabel for="txt06" value="#{MSG_0100['06']}" />
+				<p:inputText id="txt06" readonly="true" />
+
+				<p:outputLabel for="txt07" value="#{MSG_0100['07']}" />
+				<p:inputText id="txt07" required="true"
+					value="#{userGroupSetupController.userGroup.groupName}"
+					autocomplete="off" maxlength="50" />
+
+				<p:outputLabel for="opt08" value="#{MSG_0100['08']}" />
+				<p:selectOneRadio id="opt08" widgetVar="wvr08" required="true"
+					value="#{userGroupSetupController.userGroup.statusId}">
+
+					<f:selectItems value="#{statusList.ALL_VALUES}" var="status"
+						itemValue="#{status.value}" itemLabel="#{status.label}" />
+				</p:selectOneRadio>
+			</p:panelGrid>
+		</p:fieldset>
+
+		<p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank"
+			columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2">
+
+			<p:commandButton id="btnReset" widgetVar="btn-00"
+				value="#{MSG_0000['00']}" type="reset" resetValues="true"
+				onclick="resetForm()" />
+
+			<p:commandButton widgetVar="btn-02" value="#{MSG_0000['02']}"
+				async="true" delay="none" partialSubmit="true" validateClient="true"
+				styleClass="ui-state-highlight" process="@this pnl0113"
+				actionListener="#{userGroupSetupController.save}" />
+
+			<p:commandButton widgetVar="btn-03" value="#{MSG_0000['03']}"
+				async="true" delay="none" partialSubmit="true" validateClient="true"
+				styleClass="ui-state-highlight" process="@this pnl0113"
+				actionListener="#{userGroupSetupController.update}">
+
+				<p:confirm icon="ui-icon-alert" />
+			</p:commandButton>
+		</p:panelGrid>
+
+		<p:dataTable id="grd0113" var="userGroup" selectionMode="single"
+			value="#{userGroupSetupController.userGroupList}" sortBy="#{groupId}"
+			sortOrder="ASCENDING" reflow="true" lazy="true" rows="10"
+			rowsPerPageTemplate="5,10,15" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom">
+
+			<p:ajax event="rowSelect" async="true" immediate="true" delay="none"
+				ignoreAutoUpdate="true" oncomplete="load(xhr, status, args)"
+				listener="#{userGroupSetupController.onRowSelect}" />
+
+			<p:column headerText="#{MSG_0100['06']}" sortBy="#{groupId}">
+				<h:outputText value="#{userGroup.groupId}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0100['07']}" sortBy="#{groupName}">
+				<h:outputText value="#{userGroup.groupName}" />
+			</p:column>
+
+			<p:column headerText="#{MSG_0100['08']}">
+				<cc:status value="#{userGroup.statusId}" />
+			</p:column>
+		</p:dataTable>
+
+		<h:outputScript>
+			function resetForm() {
+				saveMode();
+				PF('wvr08').unselect(PF('wvr08').jq.find('input:radio').parent().next());
+			}
+
+			function load(xhr, status, args) {
+				updateMode();
+				var userGroup = args.userGroup;
+				$('#txt06').val(userGroup.groupId);
+				$('#txt07').val(userGroup.groupName);
+				PF('wvr08').jq.find('input:radio[value="'+userGroup.statusId+'"]').parent().next().trigger('click.selectOneRadio');
+			}
+		</h:outputScript>
+	</ui:define>
+</ui:composition>

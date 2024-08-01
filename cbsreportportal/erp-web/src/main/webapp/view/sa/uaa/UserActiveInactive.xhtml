@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="10010006:VIEW">
+	<f:view contentType="text/html">
+		<h:head>
+			<f:facet name="first">
+				<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+				<title>User Active Inactive</title>
+				<link type="text/css" rel="stylesheet"
+					href="/resources/css/customStyle.css"></link>
+			</f:facet>
+		</h:head>
+
+		<h:body class="customBody">
+			<p:layout fullPage="true">
+				<!-- **************************** Header Start from Here **************************** -->
+				<ui:include src="/view/common/header-footer.xhtml" />
+				<!-- **************************** Header End Here *********************************** -->
+
+
+				<!-- **************************** Side bar Menu Start from Here **************************** -->
+				<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+				<!-- **************************** Side bar Menu End Here **************************** -->
+
+				<!-- **************************** Body Start from Here **************************** -->
+				<p:layoutUnit position="center" id="center" style="border: 0px;">
+					<h:form id="userActiveInactiveForm" class="customForm">
+						<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+						<p:fieldset legend="User Active/Inactive Status Change"
+							id="toggleable" class="customFieldset" toggleable="true"
+							closable="true" toggleSpeed="500" closeSpeed="500"
+							widgetVar="fieldset">
+							<p:panelGrid id="grid" columns="4" layout="grid"
+								styleClass="ui-noborder">
+
+								<p:outputLabel for="userName" value="User Name: "
+									class="customOutputLabel" />
+								<p:inputText id="userName" class="customInputText" tabindex="1"
+									value="#{userActiveInactiveController.userInfoDTO.userName}"
+									label="UserName" required="true"
+									required-message="Please provide the UserName." />
+
+								<p:outputLabel for="statusId" value="Is Active?: "
+									class="customOutputLabel" />
+								<p:selectBooleanCheckbox id="statusId"
+									class="customSelectBooleanCheckbox"
+									value="#{userActiveInactiveController.userInfoDTO.statusId}" tabindex="2" />
+
+							</p:panelGrid>
+						</p:fieldset>
+
+						<shiro:hasPermission name="10010006:UPDATE">
+							<p:commandButton id="b1" value="Update" tabindex="3"
+								process="userActiveInactiveForm"
+								onclick="if(!confirm('You are Updating information..!')) return false;"
+								actionListener="#{userActiveInactiveController.update()}"
+								update="growl userSetupList userActiveInactiveForm" />
+						</shiro:hasPermission>
+
+						<p:commandButton id="b2" value="Reset" tabindex="4">
+							<p:ajax update="userActiveInactiveForm userSetupList" resetValues="true" />
+						</p:commandButton>
+						<!-- We will use this later
+            			<input type="hidden" value="${_csrf.token}" name="${_csrf.parameterName}"/> -->
+            			
+            			<p:separator />
+
+						<p:dataTable id="userSetupList"
+							class="customDataTable table table-striped table-hover table-bordered"
+							var="us" value="#{userActiveInactiveController.userSetupList}"
+							tabindex="5"
+							filteredValue="#{userActiveInactiveController.userSetupFilterList}"
+							widgetVar="userSetupListWidget" rows="5"
+							rowsPerPageTemplate="5,10,15,20,999" searching="true"
+							paginator="true" paginatorPosition="bottom"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							scrollable="true" scrollHeight="250">
+
+							<f:facet name="header">
+								<p:outputPanel style="text-align: right;">
+									<h:outputText value="Search all: " />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('userSetupListWidget').filter()"
+										style="width:150px;" placeholder="Enter keyword" tabindex="6" />
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column headerText="User Name" sortBy="#{us.userName}"
+								filterBy="#{us.userName}" filterMatchMode="contains"
+								tabindex="7">
+								<h:outputText value="#{us.userName}" />
+							</p:column>
+
+							<p:column headerText="First Name" sortBy="#{us.firstName}"
+								filterBy="#{us.firstName}" filterMatchMode="contains"
+								tabindex="8">
+								<h:outputText value="#{us.firstName}" />
+							</p:column>
+
+							<p:column headerText="Last Name" sortBy="#{us.lastName}"
+								filterBy="#{us.lastName}" filterMatchMode="contains"
+								tabindex="9">
+								<h:outputText value="#{us.lastName}" />
+							</p:column>
+
+							<p:column headerText="User Own Branch"
+								sortBy="#{us.defaultBranchCode}"
+								filterBy="#{us.defaultBranchCode}" filterMatchMode="contains"
+								tabindex="10">
+								<h:outputText value="#{us.defaultBranchCode}" />
+							</p:column>
+
+							<p:column headerText="Is Active" sortBy="#{us.statusId}"
+								filterBy="#{us.statusId}" filterMatchMode="contains"
+								tabindex="11">
+								<h:outputText value="#{us.statusId}" />
+							</p:column>
+						</p:dataTable>           			
+            			
+					</h:form>
+				</p:layoutUnit>
+				<!-- **************************** Body End from Here **************************** -->
+			</p:layout>
+
+		</h:body>
+	</f:view>
+</shiro:hasPermission>
+</html>
+<!-- Developed By Rajib Kumer Ghosh -->

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Home Page</title>
+			<link type="text/css" rel="stylesheet"
+				href="/resources/css/customStyle.css"></link>
+		</f:facet>
+		<h:outputScript library="sentinel-layout" name="js/layout.js" />
+		<h:outputScript library="script" name="default.js" />
+		<!-- <h:outputScript library="script" name="gmap.js" /> -->
+		<!-- <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> -->
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyA2WcP_p6Nqfch4wSizbevy6BKVFFpNPKM"></script>
+	</h:head>
+
+	<h:body class="customBody">
+		<p:layout fullPage="true">
+
+			<!-- **************************** Header Start from Here **************************** -->
+			<ui:include src="/view/common/header-footer.xhtml" />
+			<!-- **************************** Header End Here *********************************** -->
+
+
+			<!-- **************************** Side bar Menu Start from Here **************************** -->
+			<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+			<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+			<!-- **************************** Body Start from Here **************************** -->
+			<p:layoutUnit position="center" id="center" style="border: 0px;">
+				<!-- <p:outputLabel>Welcome to Nagad Business Intelligence (BI) Portal!</p:outputLabel> -->
+				
+				<!-- <p:contentFlow value="#{dashboardView.images}" var="image" styleClass="ui-noborder" style="height: 100px; margin: 5px 10px; padding: 2px 0;">
+    				<p:graphicImage library="images" name="rajib/#{image}" styleClass="content" />
+    				<div class="caption">#{image}</div>
+				</p:contentFlow> -->
+				
+				<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder" style="margin: 0px 0px 0px 0px; text-align: center;">
+					<p:dataTable var="visitCount" rows="1" id="count" styleClass="ui-noborder" style="border: 1px solid #a6c9e2;"
+						value="#{dashboardView.visitCountList}">
+						<p:column headerText="Total Uddokta" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.totalUddokta}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+
+						<p:column headerText="Total Uddokta Visited MTD" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.totalUddoktaVisitedMTD}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+
+						<p:column headerText="Unique Uddokta Visited MTD" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.uniqueUddoktaVisitedMTD}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+
+						<p:column headerText="Last Month Total Uddokta Visited" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.lastMonthTotalUddoktaVisited}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+
+						<p:column headerText="Last Month Unique Uddokta Visited" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.lastMonthUniqueUddoktaVisited}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+
+						<p:column headerText="Last 2nd Months Unique Uddokta Visited" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.last2ndMonthUniqueUddoktaVisited}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+
+						<p:column headerText="Last 3rd Months Unique Uddokta Visited" style="border: 1px solid #a6c9e2;">
+							<h:outputText value="#{visitCount.last3rdMonthUniqueUddoktaVisited}" style="font-size: xx-large; font-weight: bold; color: #2e6e9e; font-family: Cursive;" />
+						</p:column>
+					</p:dataTable>
+					<p:draggable for="count"/>
+				</p:panelGrid>		
+				
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder"
+					style="margin: 20px 0 20px 0;">	
+					<p:chart type="bar" model="#{dashboardView.barModel1}" style="width:80%;" responsive="true"/>	
+					<p:chart type="bar" model="#{dashboardView.barModel2}" style="width:80%; height:300px;" responsive="true"/>		
+				</p:panelGrid>			
+				
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder"
+					style="margin: 20px 0 20px 0;">	
+					<p:chart type="bar" model="#{dashboardView.barModel3}" style="width:80%;" responsive="true"/>	
+					<p:chart type="bar" model="#{dashboardView.barModel4}" style="width:80%; height:300px;" responsive="true"/>		
+				</p:panelGrid>	
+				
+				<p:panelGrid columns="3" layout="grid" styleClass="ui-noborder"
+					style="margin: 10px 0 20px 0; width:100%;">
+					<p:pieChart model="#{dashboardView.pieModel1}" id="pieModel1" value="true"
+						style="border: 1px solid #a6c9e2; border-radius: 5px;" />
+					<!-- <p:draggable for="pieModel1"/> -->
+					<p:pieChart model="#{dashboardView.pieModel2}" id="pieModel2"
+						style="border: 1px solid #a6c9e2; border-radius: 5px;" />
+					<!-- <p:draggable for="pieModel2"/> -->
+					<p:pieChart model="#{dashboardView.pieModel3}" id="pieModel3"
+						style="border: 1px solid #a6c9e2; border-radius: 5px;" />
+					<!-- <p:draggable for="pieModel3"/> -->
+					<p:pieChart model="#{dashboardView.pieModel4}" id="pieModel4"
+						style="border: 1px solid #a6c9e2; border-radius: 5px;" />
+					<!-- <p:draggable for="pieModel4"/> -->
+					<p:pieChart model="#{dashboardView.pieModel5}" id="pieModel5"
+						style="border: 1px solid #a6c9e2; border-radius: 5px;" />
+					<p:draggable for="pieModel5"/>
+				</p:panelGrid>
+				
+				<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder" style="margin: 20px 0 20px 0;">	
+    				<!-- type="HYBRID" type="ROADMAP" type="SATELLITE" type="TERRAIN"  -->
+            		<p:gmap id="gmap" center="24.1999827, 90.4734407" zoom="7" type="ROADMAP" style="width:100%;height:400px"
+            			model="#{dashboardView.mapModel1}">
+            			
+            			<p:ajax event="overlaySelect" listener="#{dashboardView.onMarkerSelect}"/>
+            			<p:gmapInfoWindow id="dashboardView">
+                			<p:outputPanel style="text-align: center; display: block; margin: auto">
+                    			<p:graphicImage library="images" name="rajib/#{dashboardView.marker.data}" height="150"/>
+                   			 	<br/>
+                    			<h:outputText value="#{dashboardView.marker.title}"/>
+                			</p:outputPanel>
+            			</p:gmapInfoWindow>
+            		</p:gmap>
+				</p:panelGrid>
+				
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder"
+					style="margin: 20px 0 20px 0;">	
+					<p:chart type="bar" model="#{dashboardView.barModel}" style="width:80%;" responsive="true"/>	
+					<p:chart type="line" model="#{dashboardView.areaModel}" style="width:80%; height:300px;" responsive="true"/>		
+				</p:panelGrid>
+
+				<!-- <h:form id="dialogButtonform">
+					<p:commandButton id="loanProductBtn" value="Loan Product List"
+						type="button" style="margin: 0 0 10px 0;" />
+					<p:overlayPanel id="loanProductPanel" for="loanProductBtn"
+						hideEffect="fade" dynamic="true" style="width:600px" modal="true"> -->
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder" style="margin: 20px 0 20px 0; height:300px;">
+					<!-- <p:dataTable var="loanProduct" rows="4" paginator="true"
+						value="#{dashboardView.loanProductList}">
+						<p:column headerText="Product Code" sortBy="#{loanProduct.productCode}">
+							<h:outputText value="#{loanProduct.productCode}" />
+						</p:column>
+
+						<p:column headerText="Product Name" sortBy="#{loanProduct.productName}">
+							<h:outputText value="#{loanProduct.productName}" />
+						</p:column>
+
+						<p:column headerText="Status" sortBy="#{loanProduct.status}">
+							<h:outputText value="#{loanProduct.status}" />
+						</p:column>
+
+						<p:column headerText="Outstanding" sortBy="#{loanProduct.outstanding}">
+							<h:outputText value="#{loanProduct.outstanding}" />
+						</p:column>
+					</p:dataTable> -->		
+					<p:chart type="line" model="#{dashboardView.lineModel1}" style="width:80%; height:300px;" responsive="true"/>				
+					<p:chart type="donut" model="#{dashboardView.donutModel}" style="width:80%; height:300px" />
+				</p:panelGrid>
+				<!-- </p:overlayPanel>
+				</h:form> -->		
+				
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder"
+					style="margin: 20px 0 20px 0;">	
+					<p:chart type="bar" model="#{dashboardView.combinedModel}" style="margin:20px 0; width:80%; height:350px" responsive="true" />
+					<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder"	style="margin: 0px 0 0px 0;">	
+						<p:chart type="bar" model="#{dashboardView.combinedModel}" style="margin:15px 0; width:80%; height:350px" responsive="true" />
+						<p:chart type="bar" model="#{dashboardView.combinedModel}" style="margin:15px 0; width:80%; height:350px" responsive="true" />	
+					</p:panelGrid>	
+				</p:panelGrid>				
+				
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-noborder" style="margin: 20px 0 20px 0;">
+					<p:dataTable var="loanProduct" rows="6"
+						value="#{dashboardView.loanProductList}">
+						<p:column headerText="Product Code" sortBy="#{loanProduct.productCode}">
+							<h:outputText value="#{loanProduct.productCode}" />
+						</p:column>
+
+						<p:column headerText="Product Name" sortBy="#{loanProduct.productName}">
+							<h:outputText value="#{loanProduct.productName}" />
+						</p:column>
+
+						<p:column headerText="Status" sortBy="#{loanProduct.status}">
+							<h:outputText value="#{loanProduct.status}" />
+						</p:column>
+
+						<p:column headerText="Outstanding" sortBy="#{loanProduct.outstanding}">
+							<h:outputText value="#{loanProduct.outstanding}" />
+						</p:column>
+					</p:dataTable>
+					<p:dataTable var="loanProduct" rows="5" paginator="true"
+						value="#{dashboardView.loanProductList}">
+						<p:column headerText="Product Code" sortBy="#{loanProduct.productCode}">
+							<h:outputText value="#{loanProduct.productCode}" />
+						</p:column>
+
+						<p:column headerText="Product Name" sortBy="#{loanProduct.productName}">
+							<h:outputText value="#{loanProduct.productName}" />
+						</p:column>
+
+						<p:column headerText="Status" sortBy="#{loanProduct.status}">
+							<h:outputText value="#{loanProduct.status}" />
+						</p:column>
+
+						<p:column headerText="Outstanding" sortBy="#{loanProduct.outstanding}">
+							<h:outputText value="#{loanProduct.outstanding}" />
+						</p:column>
+					</p:dataTable>
+					<!-- <p:chart type="line" model="#{dashboardView.lineModel1}" style="width:80%; height:300px;" responsive="true"/> -->
+				</p:panelGrid>
+				
+				<p:chart type="bar" model="#{dashboardView.barModel}" style="margin:20px 0; width:80%;" responsive="true"/>
+				<p:separator></p:separator>
+
+
+				<!-- <div style="height: 500px">
+					<h:form>
+						<p:growl id="msgs" showDetail="true"
+							skipDetailIfEqualsSummary="true" />
+
+						<p:dashboard id="board" model="#{dashboardView.model}">
+							<p:ajax event="reorder" listener="#{dashboardView.handleReorder}"
+								update="msgs" />
+
+							<p:panel id="totalCustomer" header="Total Customer"
+								closable="true" toggleable="true">
+								<h:outputText value="Individual: 1200000" />
+								<h:outputText value="Individual: 50000" />
+							</p:panel>
+
+							<p:panel id="totalLoan" header="Total No of Loan Account"
+								closable="true" toggleable="true">
+								<h:outputText value="Term Loan Account: 1000000" />
+								<h:outputText value="Time Loan Account: 50000" />
+								<h:outputText value="Demand Loan Account: 50000" />
+								<h:outputText value="Home Loan Account: 100000" />
+								<h:outputText value="Employee Loan Account: 50000" />
+								<h:outputText value="Current Account: 100000" />
+							</p:panel>
+
+							<p:panel id="totalDeposit" header="Total No of Deposit Account"
+								closable="true" toggleable="true">
+								<h:outputText value="Term Deposit Account: 1000000" />
+								<h:outputText value="Demand Deposit Account: 50000" />
+								<h:outputText value="FDR Account: 100000" />
+								<h:outputText value="RD Account: 50000" />
+								<h:outputText value="Savings Account: 50000" />
+							</p:panel>
+
+							<p:panel id="totalLoanOutstanding"
+								header="Total Loan Outstanding" closable="true"
+								toggleable="true">
+								<h:outputText value="Term Loan Outstanding: 100000000" />
+								<h:outputText value="Time Loan Outstanding: 5000000" />
+								<h:outputText value="Demand Loan Outstanding: 5000000" />
+								<h:outputText value="Home Loan Outstanding: 10000000" />
+								<h:outputText value="Employee Loan Outstanding: 5000000" />
+								<h:outputText value="Current Outstanding: 10000000" />
+							</p:panel>
+
+							<p:panel id="totalDepositOutstanding"
+								header="Total Deposit Outstanding" closable="true"
+								toggleable="true">
+								<h:outputText value="Term Deposit Outstanding: 100000000" />
+								<h:outputText value="Demand Deposit Outstanding: 5000000" />
+								<h:outputText value="FDR Outstanding: 10000000" />
+								<h:outputText value="RD Outstanding: 5000000" />
+								<h:outputText value="Savings Outstanding: 5000000" />
+							</p:panel>
+
+						</p:dashboard>
+
+						<div style="clear: both" />
+					</h:form>
+				</div> -->
+				
+				
+				<!-- <p:panel>
+					<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+						<p:panel>
+							<p:pieChart model="#{dashboardView.pieModel2}" />
+						</p:panel>
+						<p:panel>
+							<p:pieChart model="#{dashboardView.pieModel2}" />
+						</p:panel>
+						<p:panel>
+							<p:pieChart model="#{dashboardView.pieModel2}" />
+						</p:panel>
+						<p:panel>
+							<p:pieChart model="#{dashboardView.pieModel2}" />
+						</p:panel>
+					</p:panelGrid>
+				</p:panel> -->
+
+				<!-- <table>
+					<tr>
+						<td><p:panel>
+								<p:pieChart model="#{dashboardView.pieModel1}"
+									style="width: 100%; height: 300px;" />
+							</p:panel></td>
+
+						<td><p:panel>
+								<p:pieChart model="#{dashboardView.pieModel2}"
+									style="width: 100%; height: 300px;" />
+							</p:panel></td>
+						<td><p:panel>
+								<p:pieChart model="#{dashboardView.pieModel1}"
+									style="width: 100%; height: 300px;" />
+							</p:panel></td>
+
+						<td><p:panel>
+								<p:pieChart model="#{dashboardView.pieModel2}"
+									style="width: 100%; height: 300px;" />
+							</p:panel></td>
+					</tr>
+				</table> -->
+
+
+
+
+			</p:layoutUnit>
+			<!-- **************************** Body Start from Here **************************** -->
+		</p:layout>
+		
+		<h:outputStylesheet library="sentinel-layout" name="css/font-icon-layout.css" />
+		<h:outputStylesheet library="sentinel-layout" name="css/sentinel-layout.css" />
+		<h:outputStylesheet library="sentinel-layout" name="css/core-layout.css" />
+	</h:body>
+</f:view>
+</html>

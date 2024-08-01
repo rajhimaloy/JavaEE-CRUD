@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="10010004:VIEW">
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>User Wise Group Map</title>
+			<link type="text/css" rel="stylesheet" href="/resources/css/customStyle.css"></link>
+		</f:facet>
+	</h:head>
+
+	<h:body class="customBody">
+		<p:layout fullPage="true">
+
+			<!-- **************************** Header Start from Here **************************** -->
+			<ui:include src="/view/common/header-footer.xhtml" />
+			<!-- **************************** Header End Here *********************************** -->
+
+
+			<!-- **************************** Side bar Menu Start from Here **************************** -->
+			<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+			<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+			<!-- **************************** Body Start from Here **************************** -->
+			<p:layoutUnit position="center" id="center" style="border: 0px;">
+
+				<h:form id="userWiseGroupMapForm" class="customForm">
+					<p:growl id="growl" showDetail="true" sticky="true" life="3000" />
+					<!-- <p:messages id="messages" autoUpdate="true" showDetail="true" severity="fatal,info,warn" globalOnly="true" /> -->
+
+					<p:fieldset legend="Input User for Group Map" id="toggleableUserPanel" class="customFieldset" toggleable="true" toggleSpeed="500">
+						<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+							<p:outputLabel for="userId" value="User ID: " class="customOutputLabel" />
+							<p:inputText id="userId" label="userId" class="customInputText"
+								value="#{userWiseGroupMapController.userWiseGroupMap.userId}"
+								required="true" required-message="Please provide the User ID.">
+								<p:ajax event="blur" update="userWiseGroupMapList" listener="#{userWiseGroupMapController.handleAjaxEvent}" />
+							</p:inputText>
+						</p:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset legend="User Mapped with Groups List" id="toggleableGroupListPanel" class="customFieldset" toggleable="true" toggleSpeed="500">
+						<p:panelGrid columns="1" layout="grid" styleClass="ui-noborder">
+							<p:dataTable id="userWiseGroupMapList" var="ug" scrollable="true" scrollHeight="200"
+								value="#{userWiseGroupMapController.userWiseGroupMapList}"
+								rowKey="#{userWiseGroupMapController.userWiseGroupMap.groupId}"
+								reflow="true" rows="10" rowsPerPageTemplate="5,10,15,999"
+								paginator="true" paginatorPosition="bottom">
+								
+								<p:column headerText="Status" sortBy="#{ug.statusId}">
+									<p:selectBooleanCheckbox id="statusId" class="customSelectBooleanCheckbox" value="#{ug.statusId}" />
+								</p:column>
+
+								<p:column headerText="User Group ID" sortBy="#{ug.groupId}">
+									<h:outputText value="#{ug.groupId}" />
+								</p:column>
+
+								<p:column headerText="User Group Name" sortBy="#{ug.groupName}">
+									<h:outputText value="#{ug.groupName}" />
+								</p:column>
+							</p:dataTable>
+						</p:panelGrid>
+					</p:fieldset>
+					
+
+					<shiro:hasPermission name="10010004:UPDATE">
+						<p:commandButton id="b1" value="Update" process="userWiseGroupMapForm"
+							actionListener="#{userWiseGroupMapController.update()}" update="growl userWiseGroupMapForm" />
+					</shiro:hasPermission>
+
+					<p:commandButton id="b4" value="Reset">
+						<p:ajax update="toggleableUserPanel" resetValues="true" />
+					</p:commandButton>
+
+				</h:form>
+
+			</p:layoutUnit>
+		</p:layout>
+	</h:body>
+
+</f:view>
+</shiro:hasPermission>
+</html>
+<!-- Developed By Rajib Kumer Ghosh -->

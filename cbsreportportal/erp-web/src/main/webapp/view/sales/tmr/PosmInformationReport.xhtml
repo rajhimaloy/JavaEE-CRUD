@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<shiro:hasPermission name="13990501:VIEW">
+	<f:view contentType="text/html">
+		<h:head>
+			<f:facet name="first">
+				<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+				<title>TMR Portal - POSM Information Report</title>
+				<link type="text/css" rel="stylesheet"
+					href="/resources/css/customStyle.css"></link>
+			</f:facet>
+		</h:head>
+
+		<h:body class="customBody">
+			<p:layout fullPage="true">
+
+				<!-- **************************** Header Start from Here **************************** -->
+				<ui:include src="/view/common/header-footer.xhtml" />
+				<!-- **************************** Header End Here *********************************** -->
+
+
+				<!-- **************************** Side bar Menu Start from Here ********************* -->
+				<ui:include src="/view/common/leftSideBarMenu.xhtml" />
+				<!-- **************************** Side bar Menu End Here **************************** -->
+
+
+				<!-- **************************** Body Start from Here ****************************** -->
+				<p:layoutUnit position="center" id="center" style="border: 0px;">
+
+					<f:view>
+						<h:form id="posmInformationReportForm" class="customForm"
+							target="_blank">
+							<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+							<p:fieldset legend="TMR Module - POSM Information Report:-"
+								id="toggleable1" class="customFieldset" toggleable="true"
+								toggleSpeed="500">
+								<h:panelGrid columns="2" cellpadding="5"
+									styleClass="ui-noborder">
+									<p:outputLabel for="reportSelection" value="Report:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="reportSelection"
+										class="customSelectOneMenu" required="true" tabindex="1"
+										value="#{posmInformationReportController.posmInformationReportDTO.reportSelection}">
+										<f:selectItem itemLabel="Select Report" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="POSM Compitition Report" itemValue="1" />
+										<f:selectItem itemLabel="POSM Compitition Report" itemValue="2" />
+										<f:selectItem itemLabel="POSM Compitition Report" itemValue="3" />
+										<p:ajax event="change"
+											update="regionName areaName teritoryName dhWalet dsoWalet tmWalet uddoktaWalet popupDatePicker1 popupDatePicker2"
+											listener="#{posmInformationReportController.getRegionDropdownList}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
+							</p:fieldset>
+
+							<p:fieldset legend="Report Filtering Criteria:-" id="toggleable2"
+								class="customFieldset" toggleable="true" toggleSpeed="500" collapsed="true">
+								<!-- <p:messages id="messages"/> -->
+								<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+
+									<p:outputLabel for="clusterName" value="Cluster Name:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="clusterName" class="customSelectOneMenu"
+										tabindex="2" required="true"
+										value="#{posmInformationReportController.posmInformationReportDTO.clusterName}">
+										<f:selectItem itemLabel="Select Cluster" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{posmInformationReportController.dropdownDTOClusterList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+										<p:ajax event="blur" update="regionName"
+											listener="#{posmInformationReportController.getRegionDropdownList}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="regionName" value="Region Name:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="regionName" class="customSelectOneMenu"
+										tabindex="3" required="true"
+										value="#{posmInformationReportController.posmInformationReportDTO.regionName}">
+										<f:selectItem itemLabel="Select Region" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{posmInformationReportController.dropdownDTORegionList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+										<p:ajax event="blur" update="areaName"
+											listener="#{posmInformationReportController.getAreaDropdownList}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="areaName" value="Area Name: "
+										class="customOutputLabel" />
+									<p:selectOneMenu id="areaName" class="customSelectOneMenu"
+										tabindex="4"
+										value="#{posmInformationReportController.posmInformationReportDTO.areaName}"
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection == 3 or posmInformationReportController.posmInformationReportDTO.reportSelection == 2 or posmInformationReportController.posmInformationReportDTO.reportSelection == 1}">
+										<f:selectItem itemLabel="Select Area" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{posmInformationReportController.dropdownDTOAreaList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+										<p:ajax event="blur" update="teritoryName"
+											listener="#{posmInformationReportController.getTeritoryDropdownList}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="teritoryName" value="Teritory Name:"
+										class="customOutputLabel" />
+									<p:selectOneMenu id="teritoryName" class="customSelectOneMenu"
+										tabindex="5"
+										value="#{posmInformationReportController.posmInformationReportDTO.teritoryName}"
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection == 1 or posmInformationReportController.posmInformationReportDTO.reportSelection == 2 or posmInformationReportController.posmInformationReportDTO.reportSelection == 3}">
+										<f:selectItem itemLabel="Select Teritory" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{posmInformationReportController.dropdownDTOTeritoryList}"
+											var="dropdownDTO" itemValue="#{dropdownDTO.stringValue}"
+											itemLabel="#{dropdownDTO.stringLabel}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="dhWalet" value="DH Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="dhWalet" class="customInputText" tabindex="6"
+										value="#{posmInformationReportController.posmInformationReportDTO.dhWalet}" 
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection == 3 or posmInformationReportController.posmInformationReportDTO.reportSelection == 4}" />
+
+									<p:outputLabel for="dsoWalet" value="DSO/KAM Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="dsoWalet" class="customInputText" tabindex="7"
+										value="#{posmInformationReportController.posmInformationReportDTO.dsoWalet}"
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection == 3 or posmInformationReportController.posmInformationReportDTO.reportSelection == 4}" />
+
+									<p:outputLabel for="tmWalet" value="TM Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="tmWalet" class="customInputText" tabindex="7"
+										value="#{posmInformationReportController.posmInformationReportDTO.tmWalet}"
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection != 3}" />
+
+									<p:outputLabel for="uddoktaWalet" value="Uddokta Wallet No: "
+										class="customOutputLabel" />
+									<p:inputText id="uddoktaWalet" class="customInputText"
+										tabindex="8"
+										value="#{posmInformationReportController.posmInformationReportDTO.uddoktaWalet}" />
+
+								</p:panelGrid>
+							</p:fieldset>
+
+							<p:fieldset legend="Report Filtering Criteria for Date:-"
+								id="toggleable3" class="customFieldset" toggleable="true"
+								toggleSpeed="500" collapsed="false">
+								<!-- <p:messages id="messages"/> -->
+								
+								<p:panelGrid columns="4" layout="grid" styleClass="ui-noborder">
+									<p:outputLabel for="popupDatePicker1" value="From Date:"
+										class="customOutputLabel" />
+									<p:datePicker id="popupDatePicker1" class="customDatePicker"
+										showIcon="true" tabindex="9" required="true"
+										value="#{posmInformationReportController.posmInformationReportDTO.fromDate}"
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection == 4 or posmInformationReportController.posmInformationReportDTO.reportSelection == 5 or posmInformationReportController.posmInformationReportDTO.reportSelection == 6}" />
+
+									<p:outputLabel for="popupDatePicker2" value="To Date:"
+										class="customOutputLabel" />
+									<p:datePicker id="popupDatePicker2" class="customDatePicker"
+										showIcon="true" tabindex="10" required="true"
+										value="#{posmInformationReportController.posmInformationReportDTO.toDate}"
+										disabled="#{posmInformationReportController.posmInformationReportDTO.reportSelection == 4 or posmInformationReportController.posmInformationReportDTO.reportSelection == 5 or posmInformationReportController.posmInformationReportDTO.reportSelection == 6}" />
+									<!-- required="true" required-message="Please provide the To Date." -->
+								</p:panelGrid>
+							</p:fieldset>
+
+							<p:panel header="Report Export Format:-" id="toggleable"
+								class="customPanel" toggleable="true" closable="true"
+								toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+								<p:selectOneRadio required="true" tabindex="11"
+									value="#{posmInformationReportController.posmInformationReportDTO.reportExportFormat}">
+									<f:selectItem itemValue="1" itemLabel="PDF" />
+									<f:selectItem itemValue="2" itemLabel="EXCEL(xlsx)" />
+									<f:selectItem itemValue="3" itemLabel="HTML" />
+								</p:selectOneRadio>
+							</p:panel>
+
+
+							<shiro:hasPermission name="13990501:VIEW">
+								<p:commandButton id="b1" ajax="false" tabindex="12"
+									value="Generate Report" icon="pi pi-check" process="@this"
+									update="posmInformationReportForm"
+									actionListener="#{posmInformationReportController.exportReport()}" />
+							</shiro:hasPermission>
+
+							<p:commandButton id="b2" value="Reset" tabindex="14">
+								<p:ajax update="posmInformationReportForm" resetValues="true" />
+							</p:commandButton>
+
+						</h:form>
+
+						<!-- *********For R&D on Power BI Report Start********** -->
+						<!-- <iframe style="width: 100%; height: 100%; responsive: true;"
+							frameborder="0"
+							src="https://app.powerbi.com/view?r=eyJrIjoiNDEyMTljNmEtNDUzNy00YjRjLWFiYzYtOTdjNTg5MWExYmQzIiwidCI6IjQ4MWU4OTJlLWIwZWEtNDIyYS1hMjNlLTA5ZTNkOGUyNTg5OCIsImMiOjEwfQ%3D%3D">
+						</iframe> -->
+								
+						<!-- <div id="wrap">
+							<iframe id="imagepgframe" name="imagepgframe" frameborder="0"
+								scrolling="auto" src="#{posmInformationReportController.posmInformationReportDTO.status}">
+								<p>Power BI iframes Data Preview.</p>
+							</iframe>
+						</div> -->
+						<!-- *********For R&D on Power BI Report END********** -->
+						
+					</f:view>
+				</p:layoutUnit>
+				<!-- **************************** Body Start from Here **************************** -->
+
+			</p:layout>
+
+		</h:body>
+
+	</f:view>
+</shiro:hasPermission>
+</html>

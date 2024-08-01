@@ -1,0 +1,212 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.banks.erp</groupId>
+		<artifactId>reportportal</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>cbsreportportal</artifactId>
+	<packaging>pom</packaging>
+	<name>cbsreportportal</name>
+	<description>Core Business Solution(CBS) Report Portal Main Module</description>
+
+	<modules>
+		<module>erp-web</module>
+		<module>erp-library</module>
+		<module>sa-api</module>
+		<module>sa-core</module>
+		<module>sales-api</module>
+		<module>sales-core</module>
+	</modules>
+
+	<properties>
+		<!-- Encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- JDK Version for Maven Compiler -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
+		<!-- Java EE Version -->
+		<javaee.version>8.0</javaee.version>
+		<!-- <jakarta.version>8.0</jakarta.version> -->
+
+		<!-- Web Xml Availability Check -->
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+
+		<!-- Prime Faces Version -->
+		<primeface.version>7.0</primeface.version>
+		<primefaces.themes.version>1.0.10</primefaces.themes.version>
+		<omnifaces-version>3.6.1</omnifaces-version>
+
+		<!-- Shiro Version -->
+		<shiro-version>1.3.2</shiro-version>
+		<!-- <shiro-version>1.5.3</shiro-version> -->
+		<shiro-faces>2.0</shiro-faces>
+
+		<!-- JJWT(Java Web Token - Web API) Version -->
+		<version.jjwt>0.9.1</version.jjwt>
+
+		<!-- Jasper Reports Version -->
+		<jasperreports.version>6.13.0</jasperreports.version>
+		<jasperreports.htmlcomponent>5.0.1</jasperreports.htmlcomponent>
+
+		<!-- Apache POI(Excel Utility) Version -->
+		<apachepoi.version>4.1.2</apachepoi.version>
+		<xlsx-streamer.version>2.1.0</xlsx-streamer.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Repo</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${javaee.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.primefaces</groupId>
+				<artifactId>primefaces</artifactId>
+				<version>${primeface.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.primefaces.themes</groupId>
+				<artifactId>all-themes</artifactId>
+				<version>${primefaces.themes.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.omnifaces</groupId>
+				<artifactId>omnifaces</artifactId>
+				<version>${omnifaces-version}</version>
+			</dependency>
+
+			<!-- Security Part Start Here -->
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${shiro-version}</version>
+
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-faces</artifactId>
+				<version>${shiro-faces}</version>
+			</dependency>
+			<!-- Security Part End Here -->
+
+			<!-- JJWT(Java Web Token - Web API) Version -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${version.jjwt}</version>
+			</dependency>
+
+			<!-- Report Part Start Here -->
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-functions</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-fonts</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-chart-themes</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-chart-customizers</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-custom-visualization</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-annotation-processors</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-metadata</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-htmlcomponent</artifactId>
+				<version>${jasperreports.htmlcomponent}</version>
+			</dependency>
+			<!-- Manual Download:- http://maven.cantabria.es/artifactory/amap/net/sf/jasperreports/jasperreports-htmlcomponent/5.0.1/ -->
+			<!-- Report Part End Here -->
+
+			<!-- Apache POI(Excel Utility) Version -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${apachepoi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${apachepoi.version}</version>
+			</dependency>
+			<!-- Apache POI Streaming api -->
+			<dependency>
+				<groupId>com.monitorjbl</groupId>
+				<artifactId>xlsx-streamer</artifactId>
+				<version>${xlsx-streamer.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.itsoulltd</groupId>
+				<artifactId>JSQLEditor</artifactId>
+				<version>v1.1.4.0-RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

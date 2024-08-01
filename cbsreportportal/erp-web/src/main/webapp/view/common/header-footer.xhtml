@@ -1,0 +1,128 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- **************************** Header Start from Here **************************** -->
+	<p:layoutUnit position="north" size="92" resizable="true"
+		closable="true" collapsible="true">
+		<!-- <p:panel> -->
+		<div class="ui-g-2" style="padding: 0 10px;">
+			<a class="navbar-brand" href="https://tmrweb.mynagad.com:8161/view/index.bank">
+				<h:graphicImage library="images" name="logo.png" width="139px"
+					height="60px" />
+			</a>
+		</div>
+			
+		<!-- <div class="ui-g-7" style="padding: 0 0px; font-size: 60px; color: #f00; text-align: right">
+			<p:contentFlow value="#{dashboardView.images}" var="image" styleClass="ui-noborder" style="height: 60px; margin: 5px 10px; padding: 2px 0; border: 0px;">
+    				<p:graphicImage library="images" name="rajib/#{image}" styleClass="content" />
+    				<div class="caption">#{image}</div>
+			</p:contentFlow>
+		</div> -->
+			
+		<div class="ui-g-8" style="padding: 0 0px; font-size: 60px; color: #f00; text-align: right">			
+			<STRONG><b> ERP </b></STRONG>
+		</div>
+		
+		<div class="ui-g-2" style="padding: 0 10px; font-size: 11px; color: #f00; text-align: right">
+			<i style="color: #ff8b00">(#{userAuthenticationController.getUserLoginId()})</i>
+			<STRONG><b> : Logged-in as </b></STRONG> &#9672;
+			<br /> 
+			<i style="color: #ff8b00">#{userAuthenticationController.getCurrentUser().defaultBranchCode} - Head Office</i>
+			<STRONG><b> : Branch </b></STRONG> &#9672;
+			<br />
+			<i style="color: #ff8b00">#{userAuthenticationController.getCurrentUser().email}</i>
+			<STRONG><b> : E-Mail </b></STRONG> &#9672;
+			<br /> 
+			<i style="color: #ff8b00">#{userAuthenticationController.getCurrentUser().firstName} #{userAuthenticationController.getCurrentUser().lastName}</i>
+			<STRONG><b> : Full Name </b></STRONG> &#9672;
+			<br />
+			<!-- &#9672; <STRONG><b>System Open Date:</b></STRONG> 
+					<i style="color: #ff8b00">#{userAuthenticationController.getSystemDate()}</i> -->
+			
+			<h:form style="padding: 2px 0px 0px 0px;">
+				<p:commandButton id="logoutButton" class="customButton-logout"
+					value="Logout" icon="ui-icon ui-icon-power"
+					style="font-style:italic; font-weight:600; font-size:0.7em; letter-spacing:0.2em; padding: 0px 35px;"
+					ajax="false" actionListener="#{userAuthenticationController.logout()}" />
+				<!-- <p:commandLink styleClass="ui-icon ui-icon-power" ajax="false" actionListener="#{userAuthenticationController.logout()}" /> -->
+			</h:form>
+		
+		</div>
+
+		<!-- <div class="ui-g-10" style="padding: 0px;">
+			<div class="ui-g-12" style="padding: 0px; height: 50px;">
+				<div class="ui-g-8" style="font-size: 30px; color: #ff8b00; text-align: center">
+					Planning and Business Operations (PBO) Service Portal.
+				</div>
+				<div class="ui-g-8" style="font-size: 30px; color: #ff8b00; text-align: center">
+					Sales Field Force (TMR) Service Portal.
+				</div>
+
+				<div class="ui-g-2" style="width: 78px; height: 78px;">
+					<p:clock displayMode="analog" />
+				</div>
+
+				<div class="ui-g-2" style="font-size: 11px; color: #f00; text-align: right">  color: #203bce;
+					<STRONG><b>Logged-in as:</b></STRONG> 
+					<i style="color: #ff8b00">(#{userAuthenticationController.getUserLoginId()})</i>
+					<br /> <STRONG><b>Full Name:</b></STRONG> <i>#{userAuthenticationController.getCurrentUser().firstName}
+						#{userAuthenticationController.getCurrentUser().lastName}</i> <br />
+					<STRONG><b>E-Mail:</b></STRONG> <i>#{userAuthenticationController.getCurrentUser().email}</i>
+					<br /> <STRONG><b>Branch: </b></STRONG> 
+					<i style="color: #ff8b00">#{userAuthenticationController.getCurrentUser().defaultBranchCode} - Head Office</i>
+					<br /> <STRONG><b>System Date:</b></STRONG> <i>#{userAuthenticationController.getSystemDate()}</i>
+
+				</div>
+
+				<div class="ui-g-1">
+					<h:form>
+						<p:commandButton id="logoutButton" class="customButton-logout"
+							value="Logout" icon="ui-icon ui-icon-power"
+							style="font-style:italic; font-weight:600; font-size:0.7em; letter-spacing:0.2em;"
+							ajax="false"
+							actionListener="#{userAuthenticationController.logout()}" />
+						<p:commandLink styleClass="ui-icon ui-icon-power" ajax="false"
+                     actionListener="#{userAuthenticationController.logout()}" />
+					</h:form>
+				</div>
+			</div>
+			<div class="ui-g-12" style="padding: 0px;">
+				<div class="ui-g-5"	style="font-size: 12px; color: #f00; text-align: right">
+					&#9672; <STRONG><b>Full Name:</b></STRONG> 
+					<i style="color: #ff8b00">#{userAuthenticationController.getCurrentUser().firstName} #{userAuthenticationController.getCurrentUser().lastName}</i>
+				</div>
+				<div class="ui-g-3"	style="font-size: 12px; color: #f00; text-align: right">
+					&#9672; <STRONG><b>E-Mail:</b></STRONG> 
+					<i style="color: #ff8b00">#{userAuthenticationController.getCurrentUser().email}</i>
+				</div>
+				<div class="ui-g-4"	style="font-size: 12px; color: #f00; text-align: right">
+					&#9672; <STRONG><b>System Open Date:</b></STRONG> 
+					<i style="color: #ff8b00">#{userAuthenticationController.getSystemDate()}</i>
+				</div>
+			</div>
+
+		</div> -->
+
+	</p:layoutUnit>
+	<!-- **************************** Header End Here **************************** -->
+
+
+	<!-- **************************** Footer Start from Here **************************** -->
+	<p:layoutUnit position="south" size="40" closable="true" collapsible="true" style="text-align: center; font-size: 12px; color: #f00;">
+    	
+    	<a style="text-align: center; font-size: 12px; color: #f00;">
+    		Developed By @ Planning &#38; Development, Your Company.
+    	</a>
+        <BR />
+    	<i style="text-align: center; font-size: 8px; color: #ff8b00;">
+    		001, Your Company Tower, ABC Avenue, Your City, Your Country.
+    	</i>
+    </p:layoutUnit>
+	<!-- **************************** Footer End Here **************************** -->
+
+</ui:composition>

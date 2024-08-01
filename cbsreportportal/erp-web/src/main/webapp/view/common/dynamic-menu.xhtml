@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+</h:head>
+<h:form style="width:auto;">
+	<!-- <p:slideMenu model="#{menuManagedBean.getMenuManagedBean()}" my="left top" at="left bottom" style="width:211px"></p:slideMenu> It's not the good practise, Here method is calling 4 times. -->
+	<!-- <p:slideMenu model="#{menuManagedBean.menu}" my="left top" at="left bottom" style="width:230px;"></p:slideMenu> -->
+	
+	<!-- <p:commandButton id="dynaButton" value="Menu" type="button" icon="ui-icon-home"/>
+	<p:slideMenu model="#{menuManagedBean.menu}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:230px;"></p:slideMenu> -->
+			
+	<p:panelMenu model="#{menuManagedBean.menu}"></p:panelMenu >
+	
+				
+				
+				
+				
+				
+	
+	<!-- <p:tieredMenu model="#{menuManagedBean.menu}"></p:tieredMenu> -->
+	<!-- <p:menu overlay="true" trigger="triggerButton" my="center top"
+		at="right top" model="#{menuManagedBean.menu}"></p:menu>
+	<p:commandButton id="triggerButton" value="Trigger Menu"></p:commandButton> -->		
+	<!-- <p:menubar model="#{menuManagedBean.menu}"></p:menubar> -->
+
+</h:form>
+</html>
